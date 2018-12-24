@@ -1,0 +1,88 @@
+﻿{extend name="common/inside"}
+
+{block name="table"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>序号</th>
+                <th>微信名</th>
+                <th>手机号码</th>
+                <th>是否认证</th>
+                <th>会员等级</th>
+                <th>注册时间</th>
+                <th>用户类型</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $users as $user}
+            <tr class="text-c">
+                <td>{$user->user_id}</td>
+                <td>{$user->we_chat_name}</td>
+                <td>{$user->user_tel}</td>
+                <td>{$user->is_auth}</td>
+                <td>{$user->user_type}</td>
+                <td>{$user->created_at}</td>
+                <td>{$user->userType()}</td>
+                <td class="td-manage">
+                    <a title="编辑" href="javascript:;" onclick="member_edit('会员编辑','{:str_replace('id',$user->user_id,url('/users/id/edit'))}',1,1000,600)"
+                       class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="member_del(this,{$user->user_id})" class="ml-5"
+                       style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/block}
+
+
+{block name='js'}
+<script>
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var url = "{:url('/user/id')}"
+            console.log(url)
+            url = url.replace('id',id)
+
+            console.log(url)
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    if (data.state == 'success'){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:2,time:1000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data)
+
+                    // console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+
+{/block}
+
+
+
+

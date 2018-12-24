@@ -1,0 +1,134 @@
+﻿{extend name="common/inside"}
+
+
+{block name="table"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>序号</th>
+                <th>商品名称</th>
+                <th>商品类型</th>
+                <th>发布者</th>
+                <th>当前商品状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $goods as $good}
+            <tr class="text-c">
+                <td>{$good->goods_id}</td>
+                <td>{$good->goods_name}</td>
+                <td>
+                    {foreach $types as $type}
+                        {if $good->goods_type == $type->type_id}
+                            <font color="#483d8b">{$type->type_name}</font>
+                        {/if}
+                    {/foreach}
+                </td>
+                <td>{$good->user->user_name}</td>
+                <td>{$good->goodState()}</td>
+                <td class="td-manage">
+                    <a title="查看商品信息" href="javascript:;" onclick="member_edit('查看商品信息','{:str_replace('id',$good->goods_id,url('/dummy/id'))}','4','','600')"
+                       class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a style="text-decoration:none" onClick="veryDown(this, {$good->goods_id})" href="javascript:;"
+                       title="下架"><i class="Hui-iconfont">&#xe631;</i></a>
+                    <a style="text-decoration:none" onClick="newUp(this, {$good->goods_id})" href="javascript:;"
+                       title="重新上架"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="member_del(this,{$good->goods_id})" class="ml-5"
+                       style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/block}
+
+
+{block name='js'}
+<script>
+
+    // 强行下架
+    function veryDown(obj,id){
+        layer.confirm('是否强行下架？',function(index){
+
+            var url = "{:url('/veryDown')}"
+            $.post(url, {
+                id : id
+            }, function (data) {
+                console.log(data)
+                alert(data.msg)
+                // if (data.state == 'success'){
+                // }
+                location.reload()
+
+            }, 'json')
+        });
+    }
+
+
+    // 重新上架
+    function newUp(obj,id){
+        layer.confirm('是否重新上架？',function(index){
+
+            var url = "{:url('/veryUp')}"
+            $.post(url, {
+                id : id
+            }, function (data) {
+                alert(data.msg)
+                location.reload()
+                // console.log(data)
+                // alert(data.msg)
+                // if (data.state == 'success'){
+                //     location.reload()
+                // }
+            }, 'json')
+        });
+    }
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var url = "{:url('/dummy/id')}"
+            console.log(url)
+            url = url.replace('id',id)
+
+            console.log(url)
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    if (data.state == 'success'){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:2,time:1000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data)
+
+                    // console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+
+{/block}
+
+
+
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>议价消息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+    <link rel="stylesheet" href="__INDEX__/css/footer.css">
+  </head>
+<body>
+<style>
+   .msgPriceSee{ border: 1px solid #C39772;padding: 2px;background: #C39772;color: #fff;float: right; border-radius:5px; }   .mui-control-content { background-color: white; min-height: 300px; }  .mui-control-content .mui-loading { margin-top: 50px; }  #line26 { padding-top: 15px; }  .time2-wsf { background: #cac6c6; border-radius: 2px; padding: 2px; }  #sp-img-wsf { max-width: 40px; min-height: 40px; border-radius: 100%; } #sliderSegmentedControl{ background: #ffffff; } .mui-control-content { background-color: white; min-height:535px; }  .mui-control-content .mui-loading { margin-top: 50px; } .center{margin-top: 12px} #price_list{text-align: left; position: relative; left: 30px;} .price_see{    float: right; margin-top: -21px; background-color: #C39772; color: #fff; padding: 1px 5px; border-radius: 5px;}
+</style>
+<div class="mui-content">
+    <ul class="mui-table-view">
+        {foreach $joins as $join}
+        <li class="mui-table-view-cell ">
+            <a href="javascript:;">
+                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="">
+                <div class="mui-media-body">
+                    <p class="center">
+                        新消息： <br/>
+                        <textarea  readonly="readonly" name="" rows="2" cols="3" placeholder="{$join->join_content}"></textarea>
+                    </p>
+                    {if $join->join_type == 0}
+                        <span class="msgPriceSee" onclick="window.location.href = '{:url('/msgGoods',['id' => 1, 'join_id' => $join->join_id])}'">查看</span>
+                    {else /}
+                        <span class="msgPriceSee" onclick="window.location.href = '{:url('/msgGoods',['id' => 2, 'join_id' => $join->join_id])}'">查看</span>
+                    {/if}
+                    <br/>
+                </div>
+            </a>
+        </li>
+        <div class="ht2"></div>
+        {/foreach}
+    </ul>
+</div>
+{include file="common/foot"}
+</body>
+</html>

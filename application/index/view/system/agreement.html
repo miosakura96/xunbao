@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>用户协议</title>
+</head>
+<link href="__INDEX__/css/mui.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/app.css"/>
+<style>
+    .pad14 {
+        padding: 14px;
+    }
+
+    .title{
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+    }
+</style>
+<body>
+<div class="mui-content">
+    <div class="title">
+        <h2>{$info->info_title}</h2>
+    </div>
+    <hr>
+    {:htmlspecialchars_decode($info->info_content)}
+</div>
+
+
+<button type="button" id="Submits" class="mui-btn mui-btn-danger mui-btn-block"
+        onclick="history.back()">返回
+</button>
+</body>
+<script>
+    var $body = $('body');
+    document.title = '博商城VIP会员协议书';
+    var $iframe = $('');
+    $iframe.on('load', function () {
+        setTimeout(function () {
+            $iframe.off('load').remove();
+        }, 0);
+    }).appendTo($body);
+</script>
+</html>

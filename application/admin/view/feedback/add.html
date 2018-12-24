@@ -1,0 +1,37 @@
+{extend name="common/add"}
+{block name="form"}
+<script type="text/javascript" charset="utf-8" src="__PUB__/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUB__/ue/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__PUB__/ue/lang/zh-cn/zh-cn.js"></script>
+
+<article class="page-container">
+    <form action="{:url('/info')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">协议标题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" autocomplete="off" placeholder="协议标题" id="协议标题" name="info_title">
+            </div>
+        </div>
+
+
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}
+
+<script>
+    var ue = UE.getEditor('editor');
+</script>
+
+{/block}

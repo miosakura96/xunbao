@@ -1,0 +1,59 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:str_replace('id',$auth->auth_id,url('/auth/id'))}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">权限名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$auth->auth_name}" autocomplete="off" placeholder="权限名称" name="auth_name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">权限地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$auth->url}" autocomplete="off" placeholder="权限地址" name="url">
+            </div>
+        </div>
+
+        <input type="hidden" name="_method" value="put" />
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">父级权限：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="auth_pid" class="select">
+
+					{if $auth->auth_pid == 0}
+						<option value="0" selected>顶级权限</option>
+					{else /}
+						<option value="0">顶级权限</option>
+					{/if}
+
+                    {if !empty($authFathers)}
+                        {foreach $authFathers as $authFather}
+                            {if $auth->auth_pid == $authFather->auth_id}
+                                <option value="{$authFather->auth_id}" selected>{$authFather->auth_name}</option>
+                            {else /}
+                                <option value="{$authFather->auth_id}">{$authFather->auth_name}</option>
+                            {/if}
+                        {/foreach}
+                    {/if}
+
+				</select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

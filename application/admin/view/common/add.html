@@ -1,0 +1,100 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__ADMIN__/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="__ADMIN__/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="__ADMIN__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>汉唐文化</title>
+</head>
+
+<style type="text/css">
+    .formbody { position: relative; }
+    .preview { width: 150px; border-radius: 10px; overflow: hidden; left: 490px; top: 140px;}
+    .preview .preview-box { position: relative; }
+    .preview .preview-del {position: absolute;top: 0px; width: 100%; font-size: 13px; line-height: 20px; text-align: center; background: rgb(244,244,244);color:#ccc; cursor: pointer;z-index: 2;}
+    .preview .preview-del:hover {color: blue;}
+    .preview label  {padding:0px !important;margin: 0px !important; }
+    .preview input[type='file'] { display: none; }
+    .preview label{width: 100%;height: 150px;line-height: 150px;text-align: center;background: #fff; color: #ccc; background-size:150px 150px;border-radius: 5px;display: inline-block;cursor: pointer;}
+    .preview { border: 2px dashed #ccc; }
+</style>
+
+<body>
+{block name="form"}{/block}
+
+</body>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__ADMIN__/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__ADMIN__/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMIN__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+
+<script type="text/javascript">
+    //删除图片
+    $(".preview .preview-del").on("click", function() {
+        $(this).next().next().html('上传文件');
+        $(this).next().next().css('background-image', '' );
+    });
+    //预览图片
+    $(".preview input[type=file]").on("change", function(e) {
+        //获取图片资源
+        var file = e.target.files[0];
+        //只选择图片文件
+        if (!file.type.match('image.*')) return false;
+        //通过HTML5接口（FileReader）读取图片
+        var reader = new FileReader();
+        //读取文件
+        reader.readAsDataURL(file);
+        //文件读取成功完成时触发
+        var thisObj = this;
+        reader.onload = function(arg) {
+            //显示图片
+            $(thisObj).next().html('');
+            $(thisObj).next().css('background-image', 'url('+arg.target.result +')' );
+        }
+    });
+</script>
+
+
+{block name="js"}{/block}
+
+
+
+
+<script>
+    $(function() {
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    })
+</script>
+
+
+</html>

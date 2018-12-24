@@ -1,0 +1,73 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:url('/type')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <div class="formControls col-xs-12 col-sm-12">
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                            <th>字段</th>
+                            <th>属性</th>
+                    </thead>
+
+                    {php}
+                        $num = 0;
+                    {/php}
+                    <tbody>
+
+                    {foreach $userData as $k => $val}
+                        <tr>
+
+                            <td>{$key[$num]}</td>
+                            <td>
+                                {if $k == 'user_face_img'}
+                                    <img src="{$val}" alt="" style="width: 44px; height: 44px">
+                                {elseif $k == 'user_card_front_img'}
+                                    <img src="__UPL__/{$val}" alt="" style="width: 44px; height: 44px">
+                                {elseif $k == 'user_card_after_img'}
+                                    <img src="__UPL__/{$val}" alt="" style="width: 44px; height: 44px">
+                                {elseif $k == 'user_card_hand_img'}
+                                    <img src="__UPL__/{$val}" alt="" style="width: 44px; height: 44px">
+                                {elseif $k == 'auth_user_card_img'}
+                                    <img src="__UPL__/{$val}" alt="" style="width: 44px; height: 44px">
+                                {elseif $k == 'created_at' || $k == 'updated_at'}
+                                    {:date('Y-m-d H:i:s', $val)}
+                                {elseif $k == 'user_type'}
+                                    {$user->member->member_name}
+                                {elseif $k == 'is_auth'}
+                                    {$user->isAuth()}
+                                {elseif $k == 'is_bond'}
+                                    {$user->isBond()}
+                                {elseif $k == 'is_sms'}
+                                    {$user->isSms()}
+                                {elseif $k == 'is_true'}
+                                    {$user->userType()}
+                                {elseif $k == 'pid'}
+                                    {$user->isPid()}
+                                {elseif $k == 'unuser_id'}
+                                    {$user->isUnUserId()}
+                                {else /}
+                                    {$val}
+                                {/if}
+                            </td>
+                        </tr>
+                    {php} $num++; {/php}
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <!--<input class="btn btn-primary radius" type="button" onclick="parent.location.href = '{:url('/message')}'" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">-->
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

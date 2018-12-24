@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>消息中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+		<link rel="stylesheet" href="__INDEX__/css/footer.css">
+		<style>
+			.title{ margin: 20px 15px 7px; color: #6d6d72; font-size: 15px; } #top5{    position: relative; top: 5px; }
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" onclick="window.location.href='{:url('/sysMsg')}'">
+					<a class="mui-navigate-right">
+						<span id="top5" ><img src="__INDEX__/images/msg_img1.png" width="25px"  height="25px"/></span>&nbsp;系统消息
+					</a>
+				</li>
+				<div class="ht2"></div>
+				<li class="mui-table-view-cell" onclick="window.location.href='{:url('/priceMsg')}'">
+					<a class="mui-navigate-right">
+						<span id="top5"><img src="__INDEX__/images/msg_img2.png" width="25px"  height="25px"/></span>&nbsp;议价消息
+					</a>
+				</li>
+				<div class="ht2"></div>
+				<li class="mui-table-view-cell" onclick="window.location.href='{:url('/sends')}'">
+				<a class="mui-navigate-right">
+					<span id="top5"><img src="__INDEX__/images/msg_img2.png" width="25px"  height="25px"/></span>&nbsp;群发消息
+				</a>
+				</li>
+				<div class="ht2"></div>
+			</ul>
+		</div>
+		{include file="common/foot"}
+	</body>
+</html>

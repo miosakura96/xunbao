@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>付费详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+</head>
+<body>
+
+<div class="mui-content">
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell"><a href="javascritp:;" >升级类型<span style="color: #999999;margin-left: 30px;">付费浏览</span></a>
+        </li>
+        <div class="ht2"></div>
+        <li class="mui-table-view-cell"><a href="javascritp:;" >升级费用<span style="color: #999999;margin-left: 30px;">{:substr(config('weixin')['price'],0,-2)}</span></a>
+        </li>
+        <div class="ht2"></div>
+        <li class="mui-table-view-cell"><a href="javascritp:;" >生效时间<span style="color: #999999;margin-left: 30px;">支付成功，立刻生效</span></a>
+        </li>
+        <div class="ht2"></div>
+        <li class="mui-table-view-cell"><a href="javascritp:;" >审核时间<span style="color: #999999;margin-left: 30px;">24小时</span></a>
+        </li>
+        <div class="ht1"></div>
+    </ul>
+</div>
+<div class="subtijiao" id="wsf-btn">
+    <button style="margin-bottom: 30px" onclick="WXPayment()" class="mui-btn mui-btn-danger mui-btn-block">立即支付</button>
+</div>
+
+<!--<button type="button" >-->
+    <!--支付 1 元-->
+<!--</button>-->
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+<script>
+    wx.config({$jsapi})
+    var WXPayment = function () {
+
+        var config = {$config}
+
+        config.success = function () {
+            alert('支付成功！');
+            location.href = "{:url('/iUser')}"
+        }
+
+        config.cancel = function () {
+            alert('用户取消成功！');
+        }
+
+        wx.chooseWXPay(config);
+    }
+
+</script>
+</body>
+</html>

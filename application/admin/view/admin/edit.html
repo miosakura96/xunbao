@@ -1,0 +1,52 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:str_replace('id',$admin->id,url('/admin/id'))}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">管理用户账号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$admin->admin_name}" placeholder="请输入管理用户账号" id="admin_name" name="admin_name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">管理用户密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入管理用户密码" id="admin_password" name="admin_password">
+            </div>
+        </div>
+
+        <input type="hidden" name="_method" value="put" />
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">选择角色：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="role_id" class="select">
+					{if !empty($roles)}
+                        {foreach $roles as $role}
+                            {if $admin->role_id == $role->role_id}
+                                <option value="{$role->role_id}" selected>{$role->role_name}</option>
+                            {else /}
+                                <option value="{$role->role_id}">{$role->role_name}</option>
+                            {/if}
+					    {/foreach}
+				    {/if}
+                </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

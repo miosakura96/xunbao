@@ -1,0 +1,88 @@
+﻿{extend name="common/inside"}
+
+{block name="table"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span>
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>序号</th>
+                <th>商品名称</th>
+                <th>创建于</th>
+                <th>发布者</th>
+                <th>购买者</th>
+                <th>出价金额</th>
+                <th>商品图</th>
+                <th>购买者电话</th>
+                <th>发布者电话</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $orders as $order}
+            <tr class="text-c">
+
+                <td>{$order->order_id}</td>
+                <td>{$order->goods_name}</td>
+                <td>{$order->created_at}</td>
+                <td>{$order->sell_name}</td>
+                <td>{$order->buy_name}</td>
+                <td>{$order->order_price}</td>
+                <td>
+                    <img src="{:config('qiniu')['qiniuUrl']}{$order->goods_img}" alt="" style="width: 33px;height: 33px;">
+                </td>
+                <td>{$order->buyer->user_tel}</td>
+                <td>{$order->seller->user_tel}</td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/block}
+
+
+{block name='js'}
+<script>
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var url = "{:url('/broad/id')}"
+            console.log(url)
+            url = url.replace('id',id)
+
+            console.log(url)
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    if (data.state == 'success'){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:2,time:1000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data)
+
+                    // console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+
+{/block}
+
+
+
+

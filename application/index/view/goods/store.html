@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>卖家中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+    <script src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+
+    <style>
+        /*头像*/
+        #oa-wsf {
+            text-align: center;
+            position: absolute;
+            top: 11px;
+        }
+
+        .oa-contact-cell.mui-table .mui-table-cell {
+            padding: 11px 0;
+            vertical-align: middle;
+        }
+
+        .oa-contact-cell {
+            position: relative;
+            margin: -11px 0;
+        }
+
+        .oa-contact-avatar {
+            width: 75px;
+        }
+
+        .oa-contact-avatar img {
+            border-radius: 50%;
+        }
+
+        .oa-contact-content {
+            width: 100%;
+        }
+
+        .oa-contact-name {
+            margin-right: 20px;
+        }
+
+        .oa-contact-name, oa-contact-position {
+            float: left;
+        }
+
+        /**/
+        #sp-img-wsf {
+            max-width: 100px;
+            min-height: 100px;
+        }
+
+        .title {
+            margin: 20px 15px 7px;
+            color: #6d6d72;
+            font-size: 15px;
+        }
+
+        #pad0 {
+            padding: 0px;
+            width: 50%;
+        }
+        #pad50 {
+            padding: 0px;
+            width: 50%;
+        }
+
+        .mui-btn-m {
+            color: #fff;
+            border: 1px solid #C39772;
+            background-color: #C39772;
+            position: relative;
+            left: 3px;
+            z-index: 99;
+        }
+
+        .mui-btn-s {
+            color: #999999;
+            border: 1px solid #FFFFFF;
+            background-color: #FFFFFF;
+            position: absolute;
+        }
+
+        .ct {
+            text-align: center;
+            margin-left: -23%;
+            margin-top: -11px;
+        }
+
+        #pad1 {
+            padding-top: 1px;
+        }
+
+        #transparent-wsf {
+            background-color: transparent
+        }
+
+        #wt {
+            color: #FFFFFF;
+        }
+
+        #color99 {
+            color: #999999;
+        }
+
+        #zt {
+            color: #C39772;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .ft7 {
+            font-size: 10px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 2px;
+            position: relative;
+            top: -32px;
+            right: -55px;
+        }
+
+        .ft8 {
+            font-size: 10px;
+            background: #C39772;
+            border-radius: 10px;
+            padding: 2px;
+            position: relative;
+            top: -32px;
+            right: -55px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="mui-content">
+    <div><img id="img1" src="__INDEX__/images/person_bg.png" width="100%"/></div>
+    <div class="oa-contact-cell mui-table" id="oa-wsf">
+        <div class="oa-contact-avatar mui-table-cell">
+            <img src="{$user->user_face_img}" width="61px" height="61px"/>
+            <p></p>
+            <p id="zt">{$user->user_name}&nbsp;</p><span class="ft7">{$user->isAuth()}</span>
+        </div>
+    </div>
+    <div class="mui-card" style="    margin-top: -95px;" id="transparent-wsf">
+        <ul class="mui-table-view mui-grid-view mui-grid-9" id="transparent-wsf">
+
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="pad0" onclick="window.location.href='{:url('/follows',['id' => $user->user_id])}'"><a href="#">
+                <span id="top5">{$fansCount}</span>
+                <div class="mui-media-body" id="wt">关注</div>
+            </a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="pad0" onclick="window.location.href='{:url('/fans',['id' => $user->user_id])}'"><a href="#">
+                <span id="top5">{$flowsCount}</span>
+                <div class="mui-media-body" id="wt">粉丝</div>
+            </a></li>
+
+        </ul>
+    </div>
+    <br/>
+    <div class="mui-content " id="pad1">
+        <div class="mui-card" style="margin-bottom: 15px;">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <span id="top5"><img src="__INDEX__/images/msg_img1.png" width="25px" height="25px"/></span>&nbsp;Ta的店铺
+                    </a>
+                </li>
+                <div class="ht2"></div>
+            </ul>
+            <ul class="mui-table-view">
+                {foreach $goods as $good}
+                    <li class="mui-table-view-cell mui-media">
+                        <a onclick="window.location.href='{:url('/detail',['id' => $good['goods_id']])}'">
+                                {php}
+                                $imgs = explode(',',$good['goods_imgs']);
+                                $img = config('qiniu')['qiniuUrl'] . $imgs[0];
+                                {/php}
+                            <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{$img}">
+                            <div class="mui-media-body" style="white-space: normal; font-size: 15px;">
+                                {$good->goods_name}
+                                <p>￥&nbsp;{$good->goods_min_price}~{$good->goods_max_price}</p>
+
+                            </div>
+                            <span class="mui-h6 mui-ellipsis" id="line26">发布时间：{$good->updated_at}</span>
+                        </a>
+                    </li>
+                    <div class="ht2"></div>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<br><br><br>
+{include file="common/foot"}
+</body>
+</html>

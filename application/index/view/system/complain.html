@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>用户协议</title>
+</head>
+<body>
+<!--标准mui.css-->
+<link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__FIR__/css/inside.css"/>
+<!--App自定义的css-->
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/app.css"/>
+<link rel="stylesheet" href="__INDEX__/index/css/index1.css">
+<script type="text/javascript" src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="__INDEX__/index/js/swiper-4.3.5.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="__INDEX__/js/vue.min.js"></script>
+<script src="__INDEX__/js/element.min.js"></script>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.1/skin/layer.css">
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+<div class="mui-content" id="app">
+    <div class="mui-content-padded" style="margin: 0px;">
+        <p class="ft12"> &nbsp; &nbsp;仅用于商家查询我方公司员工信息：</p>
+        <form class="mui-input-group">
+            <div  class="mui-input-row">
+                <label>员工编号</label>
+                <input type="text" class="mui-input-clear" v-model="staff_id" placeholder="请输入员工编号" maxlength="11">
+            </div>
+        </form>
+    </div>
+    <button type="button" id="Submits" @click="SubmitsRZ()" class="mui-btn mui-btn-danger mui-btn-block">提交 </button>
+</div>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+{include file="common/foot"}
+</body>
+<script>
+    var $body = $('body');
+    document.title ='员工查询';
+    var $iframe = $('');
+    $iframe.on('load',function() {
+        setTimeout(function() {
+            $iframe.off('load').remove();
+        }, 0);
+    }).appendTo($body);
+
+    // mui.alert('员工信息', '姓名:mm ;电话:110', function() {
+    //
+    // });
+
+    var vm = new Vue({
+
+        el: '#app',
+        data: {
+            staff_id : ''
+        },
+        methods: {
+            SubmitsRZ(){
+                if (this.staff_id == ''){
+                    layer.msg('信息不完整')
+                    return
+                }
+                var url = "{:url('/iComplain')}"
+                $.post(url,{
+                    staff_id: this.staff_id
+                },(res) => {
+
+                    layer.msg(res.msg)
+
+                },'json')
+            }
+        }
+    })
+
+
+</script>
+</html>

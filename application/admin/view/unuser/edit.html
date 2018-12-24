@@ -1,0 +1,65 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:str_replace('id',$unuser->unuser_id,url('/unuser/id'))}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">虚拟用户名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$unuser->unuser_name}" autocomplete="off" placeholder="虚拟用户名称" name="unuser_name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">虚拟用户会员等级：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="mt-20 skin-minimal" style="margin-top: 0px">
+
+                    {foreach $members as $member}
+                    {if $member->member_id == $unuser->unuser_type}
+                        <div class="radio-box">
+                            <input type="radio" value="{$member->member_id}" id="radio-8" name="unuser_type" checked>
+                            <label for="radio-8">{$member->member_name}</label>
+                        </div>
+                    {else /}
+                        <div class="radio-box">
+                            <input type="radio" value="{$member->member_id}" id="radio-8" name="unuser_type">
+                            <label for="radio-8">{$member->member_name}</label>
+                        </div>
+                    {/if}
+                    {/foreach}
+
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="_method" value="put" />
+
+        {php}
+        $img = str_replace('\\','/',$unuser->unuser_face_img);
+        {/php}
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">虚拟用户头像：</label>
+            <div class="preview">
+                <div class="preview-box">
+                    <div class="preview-del">删除</div>
+                    <input id="file1" type="file" name="img" accept="image/*"/>
+                    <label for="file1" style="background: url(__UPL__/{$img}); background-size:150px 150px">上传文件</label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

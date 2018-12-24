@@ -1,0 +1,54 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:url('/type')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <div class="formControls col-xs-12 col-sm-12">
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                            <th>字段</th>
+                            <th>属性</th>
+                    </thead>
+
+                    <tbody>
+                    {php}
+                        $mark = 0;
+                    {/php}
+                    {foreach $goodData as $key => $val}
+                        <tr>
+                            <td>{$goodsKey[$mark]}</td>
+                            <td>
+                                {if $mark == 4}
+                                    {php}
+                                        $imgs = explode(',',$val);
+                                        foreach($imgs as $img){
+                                            echo "<img style='width: 60px; height: 60px; margin: 2px;' src='" . config('qiniu')['qiniuUrl'] . $img . "'>";
+                                        }
+                                    {/php}
+                                {else /}
+                                    {$val}
+                                {/if}
+                            </td>
+                        </tr>
+                        {php}
+                            $mark++;
+                        {/php}
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <!--<input class="btn btn-primary radius" type="button" onclick="parent.location.href = '{:url('/message')}'" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">-->
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>藏品发布</title>
+</head>
+<!--标准mui.css-->
+<link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__FIR__/css/inside.css"/>
+<!--App自定义的css-->
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/app.css"/>
+<link rel="stylesheet" href="__INDEX__/index/css/index1.css">
+<script type="text/javascript" src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="__INDEX__/index/js/swiper-4.3.5.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="__INDEX__/js/vue.min.js"></script>
+<script src="__INDEX__/js/element.min.js"></script>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.1/skin/layer.css">
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+
+<style type="text/css">
+    #Submits {
+        width: 40%;
+        display: inline
+    }
+
+    .yj-wsf {
+        padding: 0px 39px;
+        text-align: center;
+    }
+</style>
+<body>
+<!--发布商品-->
+<div id="app">
+    <div class="mui-content" style="background: #fff;">
+        <div class="mui-content-padded">
+            <div class="mui-input-row">
+                <label>藏品名称</label>
+                <input type="text" placeholder="请输入藏品名称(限15字)" v-model="pro_name" maxlength="15">
+            </div>
+            <div class="ht2"></div>
+        </div>
+    </div>
+    <div class="mui-input-row">
+        <label id="label-wsf"> 藏品类别</label>
+    </div>
+    <div style="text-align: center;text-align: left; padding: 0px 10px;">
+        <el-radio-group v-model="radio5" size="small">
+            {foreach $types as $type}
+            <el-radio-button label="{$type->type_name}"   style="padding: 2px;"></el-radio-button>
+            {/foreach}
+        </el-radio-group>
+        <p></p>
+        <div class="ht2"></div>
+    </div>
+    <div class="mui-input-row">
+        <label id="label-wsf">藏品描述</label>
+    </div>
+    <div class="mui-input-row" style="margin:0px 10px;">
+        <textarea id="textarea" rows="5" v-model="textarea" placeholder="请对您的宝贝进行物品介绍,品相,尺寸的描述"></textarea>
+    </div>
+    <div class="mui-input-row" style=" margin-top: -24px;">
+        <label id="label-wsf">藏品图片</label>
+    </div>
+    <div class="cpsjItem">
+        <div class="uploadImgBox">
+            <div class="imgList" id="imgBox">
+                <div class="imgBoxOne" id="addImg"></div>
+            </div>
+        </div>
+        <input type="hidden" name="pic" class="picValue" value="">
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-input-row">
+            <label>最高价</label>
+            <input type="text" placeholder="请输入您认为藏品的最高价格" v-model="price_h" maxlength="15">
+        </div>
+        <div class="ht2"></div>
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-input-row">
+            <label>最低价</label>
+            <input type="text" placeholder="请输入您认为藏品的最低价格" v-model="price_l" maxlength="15">
+        </div>
+        <div class="ht2"></div>
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-input-row">
+            <label>实际价格</label>
+            <input type="text" placeholder="请输入您认为藏品的实际价格" v-model="price" maxlength="15">
+        </div>
+        <br/>
+    </div>
+    <div class="yj-wsf">
+        <button type="button" style="width: 100%" id="Submits" class="mui-btn mui-btn-danger mui-btn-block"
+                @click="submits()">普通发布
+        </button>
+    </div>
+    <div></div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+</div>
+<br/>
+
+{include file="common/foot"}
+
+</body>
+<script>
+    var accessToken = ''
+    var serverIds = [];     //用于存储要上传到本地服务器的照片 在微信服务器上的地址列表
+    function delImg(dom){    //选择图片显示后 点击删除按钮删除图片（DOM 和 上面的图片列表）
+        serverIds.splice($(dom).parent().prevAll().length-1,1);
+        $(dom).parent().remove();
+    }
+    var url = "{:url('/index/jsApi/getVal')}"
+    $.get(url,{},function(res){
+        console.log(res)
+        wx.config({
+            debug: false,
+            appId: res.appid,
+            timestamp: res.timestamp,
+            nonceStr: res.nocestr,
+            signature: res.signature,
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                "chooseImage",
+                "previewImage",
+                "uploadImage",
+                "downloadImage"
+            ]
+        });
+
+    },'json')
+
+    wx.ready(function() {
+        $("#addImg").on("click",function(){
+            var imglen	= $('.imgBox').length;
+            console.log('imglen1',imglen);
+            var count = parseInt(9-imglen)
+            // console.log(count);
+            if(count <= 0){
+                return false;
+            }
+            wx.chooseImage({
+                count: count, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function(res) {
+                    //返回选定照片的本地ID列表
+                    var localIds = res.localIds;  //返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    var i = 0, length = localIds.length;
+                    function upload() {
+                        wx.uploadImage({
+                            localId: localIds[i],   //需要上传的图片的本地ID，由chooseImage接口获得
+                            //isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function(res) {
+                                //var serverId = res.serverId; // 返回图片的服务器端ID
+                                (i==0) && ($("#imgBox").append($('<div class="imgBox"><img src="'+localIds[0]+'" alt=""><span class="del" onclick="delImg(this)">×</span></div>')));
+                                i++;
+                                serverIds.push(res.serverId);
+                                if (i < length) {
+                                    //src="'+localIds[i]+'"
+                                    $("#imgBox").append($('<div class="imgBox"><img src="'+localIds[i]+'" alt=""><span class="del" onclick="delImg(this)">×</span></div>'));
+                                    upload();   //用递归实现上传多张照片
+                                }
+                            },
+                            fail: function(res) { /* alert(JSON.stringify(res)); */ }
+                        });
+                    }
+                    upload();
+                }
+            });
+        });
+    });
+
+    var one = 1;
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                size: 0,
+                pro_name: '',
+                price_h: '',
+                price_l: '',
+                price: '',
+                textarea: '',
+                radio5: '',
+                names: [],
+                uplode:1
+
+            }
+        },
+        methods: {
+            closeCurrentWindow() {
+                window.close();
+            },
+
+
+
+            submits() {
+                if (one == 1) {
+
+                    if(this.radio5=="手工艺品"){
+                        this.radio5=1;
+                    }if(this.radio5=="书画纂刻"){
+                        this.radio5=2;
+                    }if(this.radio5=="玉翠珠宝"){
+                        this.radio5=4;
+                    }if(this.radio5=="紫砂陶瓷"){
+                        this.radio5=6;
+                    }if(this.radio5=="文玩杂项"){
+                        this.radio5=7;
+                    }
+
+                    var price = parseInt(this.price)
+                    var price_l = parseInt(this.price_l)
+                    var price_h = parseInt(this.price_h)
+
+
+                    console.log(typeof price)
+                    console.log(price)
+
+                    if (this.pro_name.length > 15){
+                        layer.msg('藏品名称字数过长')
+                        return
+                    }
+                    
+                    if (isNaN(price) || isNaN(price_l) || isNaN(price_h)){
+                        layer.msg('请输入数字')
+                        return
+                    }
+
+                    if (price_l > price || price > price_h){
+                        layer.msg('您输入的价格有误')
+                        return
+                    }
+
+
+                    // serverIds = [
+                    //     "IrxzrV8cSYX5EztivnPC1wkCUiUSWBl6RRSkBwQCGKXokWspLxHkB1EmzFbGThET",
+                    //     "YOCYkdLuuflB487JI7_ZixQfOVWFbkk_QdJ2ZXhxXCL_I7VethwbvgubMQZcowdS",
+                    //     "38ysdHEW47vLfuVSxkmpfKpSxw_uiJnD3XNK81PacBnnYB5i0qq_VDtuYkHJFF-N",
+                    //     "8SSALil55l8KTnJs9KumaDokIbLon6XiyzGG1X1jo_72XUyypZ2B69Ei4emrcgSw",
+                    // ]
+
+
+                    if (this.pro_name == '' || this.textarea == "" || this.radio5 == "" || serverIds.length == 0) {
+                        layer.msg('上方内容均为必填项!')
+                        return;
+                    }
+
+                    if (serverIds.length < 2){
+                        layer.msg('必须上传两张图以上')
+                        return
+                    }
+
+
+                    var url = "{:url('/release')}"
+
+
+                    var newArr = [
+                        'GD3bHKOQm6sQca3rNqdufM-6BNilRtcUbSA8HqkBxHdKGyj1UWkgbyOXIIffb7sO',
+                        'uSFf_Qco0ByxlkV7pm066bjWcSzCZ327QaXBYVWJzLfxe5M3xkkeQr41LHWaIE20'
+                    ]
+
+                    one++;
+                    // this.uplode==2;
+
+                    $.post(url, {
+                        pro_userid: 1,
+                        pro_name: this.pro_name,
+                        pro_price_max: this.price_h,
+                        pro_price_min: this.price_l,
+                        pro_price_real: this.price,
+                        pro_details: this.textarea,
+                        imgsrc: serverIds,
+                        imgsrc2 : newArr,
+                        pro_category: this.radio5,
+                    }, (res) => {
+
+                        layer.msg(res.msg)
+                        if (res.state == 'auth'){
+                            window.location.href = "{:url('/nAuth')}"
+                        } else if (res.state == 'success'){
+                            window.location.href = "{:url('/')}"
+                        }
+
+
+
+
+                    }, 'json')
+
+                }else{
+
+                    layer.msg('你得商品正在发布中')
+                    return
+                }
+            },
+        }
+    })
+
+
+</script>
+</html>

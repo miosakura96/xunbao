@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商品管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+    <script src="__INDEX__/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<style>
+    #fb{float: right;
+        margin-right: 15px;
+        position: relative;}
+
+    .mycheck { width:25px; position:relative; } .mycheck input[type=checkbox] { visibility:hidden; } *{list-style: none;} .mycheck label { cursor:pointer; position:absolute; width:25px; height:25px; top:0; left: 5px; background:#fff; border:2px solid #ccc; -moz-border-radius:50%; -webkit-border-radius:50%; border-radius:50%; } .mycheck label:after { opacity:0; content:''; position:absolute; width:9px; height:5px; background:transparent; top:6px; left:4px; border:4px solid #fff; border-top:none; border-right:none; -webkit-transform:rotate(-45deg); -moz-transform:rotate(-45deg); -o-transform:rotate(-45deg); -ms-transform:rotate(-45deg); transform:rotate(-45deg); } .mycheck input[type=checkbox]:checked + label { background:#C39772; border:2px solid #C39772; } .mycheck input[type=checkbox]:checked + label:after { opacity:1; background:#C39772; } .demo{ margin:auto; min-height:350px;} ul li{line-height:30px; list-style-type:none;padding:0;margin:0; font-size:14px;} .btn{overflow: hidden;display:inline-block;*display:inline;padding:4px 20px 4px;font-size:14px;line-height:18px;*line-height:20px;color:#fff;text-align:center;vertical-align:middle;cursor:pointer;background-color:#5bb75b;border:1px solid #cccccc;border-color:#e6e6e6 #e6e6e6 #bfbfbf;border-bottom-color:#b3b3b3;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px; margin-left:2px}
+</style>
+<style>
+    .mui-control-content {
+        background-color: white;
+        min-height: 100%;
+    }
+
+    .mui-control-content .mui-loading {
+        margin-top: 50px;
+    }
+
+    #line26 {
+        padding-top: 15px;
+    }
+
+    .time2-wsf {
+        background: #cac6c6;
+        border-radius: 2px;
+        padding: 2px;
+    }
+
+    #sp-img-wsf {
+        max-width: 100px;
+        min-height: 100px;
+    }
+
+    #sliderSegmentedControl {
+        background: #ffffff;
+    }
+    #getValue{position:fixed;top:80%;right:0px;}
+    #selectAll{position:fixed;top:80%;}
+    .mui-control-content {
+        background-color: white;
+        min-height: 535px;
+    }
+    .xsSee1{margin-top: -50px; border: 1px solid #C39772;padding: 2px;background: #C39772;color: #fff;float: left; border-radius:5px; }
+    .xsSee{ border: 1px solid #C39772;padding: 2px;background: #C39772;color: #fff;float: right; border-radius:5px; }
+    .mui-control-content .mui-loading {
+        margin-top: 50px;
+    }
+</style>
+<div class="mui-content">
+    <ul id="list" style="list-style-type:none;padding:0;margin:0">
+        {foreach $goods as $good}
+
+        {if $id <> 2}
+        <li>
+            <label>
+                <div class="mycheck">
+                <input type="checkbox" value="{$good->goods_id}" id="{$good->goods_id}" name="">
+                <label for="{$good->goods_id}"></label></div>
+            </label>
+        </li>
+
+        {/if}
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+            <a href="">
+                {php}
+                    $imgs = explode(',',$good->goods_imgs);
+                {/php}
+                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{:config('qiniu')['qiniuUrl']}{$imgs[0]}">
+                <div class="mui-media-body" style="white-space: normal; font-size: 15px;">
+                        藏品标题：{$good->goods_name}藏品标题藏品标题藏品标题藏品标题藏品标题藏品标题藏品标题
+                    <p></p>
+                    <p class="mui-h6 mui-ellipsis" id="line26"></p>
+                </div>
+            </a>
+            {if $id == 1}
+                <a href="javascript:;" onclick="window.location.href = '{:url('/selGood',['id' => $good->goods_id])}'"><span class="xsSee">正在出售</span></a>
+                <input type="hidden" name="state" id="state" value="0">
+            {elseif $id == 2}
+                <a href=""><span class="xsSee">已经出售或删除</span></a>
+            {elseif $id == 3}
+                <input type="hidden" name="state" id="state" value="1">
+                <a href=""><span class="xsSee">已经下架</span></a>
+            {/if}
+        </li>
+        <div class="ht2"></div>
+    </ul>
+</li>
+ {/foreach}
+
+
+        {if $id == 1}
+            <input type="button" value="全选" class="btn" id="selectAll">
+            <input type="button" value="下架" class="btn" id="getValue">
+        {elseif $id == 2}
+
+        {elseif $id == 3}
+            <input type="button" value="全选" class="btn" id="selectAll">
+            <input type="button" value="重新上架" class="btn" id="getValue" style="right: 60px;">
+            <input type="button" value="删除" class="btn" id="delGoods" style="position:fixed;top:80%;right:5px;">
+        {/if}
+    </ul>
+</div>
+
+<br><br><br>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+{include file="common/foot"}
+</body>
+<script>
+    $(function () {
+        //全选或全不选
+        $("#all").click(function(){
+            if(this.checked){
+                $("#list :checkbox").prop("checked", true);
+            }else{
+                $("#list :checkbox").prop("checked", false);
+            }
+        });
+        //全选
+        $("#selectAll").click(function () {
+            $("#list :checkbox,#all").prop("checked", true);
+        });
+        //全不选
+        $("#unSelect").click(function () {
+            $("#list :checkbox,#all").prop("checked", false);
+        });
+        //反选
+        $("#reverse").click(function () {
+            $("#list :checkbox").each(function () {
+                $(this).prop("checked", !$(this).prop("checked"));
+            });
+            allchk();
+        });
+
+        //设置全选复选框
+        $("#list :checkbox").click(function(){
+            allchk();
+        });
+
+        //获取选中选项的值
+        $("#getValue").click(function(){
+            var valArr = new Array;
+            $("#list :checkbox[checked]").each(function(i){
+                valArr[i] = $(this).val();
+            });
+            var vals = valArr.join(',');
+
+            var state = $("#state").val()
+            console.log(state)
+
+            if (vals == ''){
+                alert('请先勾选')
+                return
+            }
+
+            var url = "{:url('/manage')}"
+            $.post(url,{
+                goods_ids : vals,
+                state : state
+            },function (data) {
+                console.log(data)
+                alert(data.msg)
+
+                if (data.state == 'success'){
+                    location.reload()
+                }
+
+            },'json')
+            console.log(vals);
+        });
+
+        // delGoods
+        $("#delGoods").click(function(){
+            var valArr = new Array;
+            $("#list :checkbox[checked]").each(function(i){
+                valArr[i] = $(this).val();
+            });
+            var vals = valArr.join(',');
+
+
+            if (vals == ''){
+                alert('请先勾选')
+                return
+            }
+
+            var url = "{:url('/manage')}"
+            $.post(url,{
+                goods_ids : vals,
+                state : 2
+            },function (data) {
+                console.log(data)
+                alert(data.msg)
+
+                if (data.state == 'success'){
+                    location.reload()
+                }
+
+            },'json')
+            console.log(vals);
+        });
+
+
+    });
+    function allchk(){
+        var chknum = $("#list :checkbox").size();//选项总个数
+        var chk = 0;
+        $("#list :checkbox").each(function () {
+            if($(this).prop("checked")==true){
+                chk++;
+            }
+        });
+        if(chknum==chk){
+            //全选
+            $("#all").prop("checked",true);
+        }else{
+            //不全选
+            $("#all").prop("checked",false);
+        }
+    }
+</script>
+</html>
+

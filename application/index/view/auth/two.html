@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>实名认证扫码支付</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+</head>
+<style>
+    .wsf-cl {
+        color: #FFFFFF;
+        padding-top: 10px;
+        position: relative;
+        top: 36%;
+    }
+
+    .uploadwsf {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        border-radius: 18px;
+    }
+
+    .mui-input-row {
+        background: #ffffff;
+    }
+
+</style>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="__FIR__/js/vue.js"></script>
+<script src="__FIR__/js/vue.min.js"></script>
+<script src="__FIR__/js/mui.min.js"></script>
+<script type="text/javascript" src="__FIR__/index/js/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="__FIR__/css/mobile-uploadImg.css">
+<body>
+<div id="app">
+    <div class="content" style="background: #FFFFFF;">
+        <div class="web-width">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox" style="padding: 15px;">
+                    <img src="__INDEX__/images/r2@2x.png" width="100%"/>
+                </div>
+            </div><!--for-liucheng/-->
+            <div class="ht1"></div>
+            <div class="mui-content">
+                <div class="mui-input-row">
+                    <label>扫码支付</label>
+                </div>
+                <div style="margin:20px 10px;">
+                    <div style="margin-top:20px;"><img src="__PUB__/images/yipaiguan2.png"
+                                                       style="width: 100%;height: 100%;">
+                    </div>
+                </div>
+                <input type="hidden" name="state" ref="state_id" value="0">
+                <button type="button" onclick="window.location.href='{:url('/nThree')}'"
+                        class="mui-btn mui-btn-danger mui-btn-block">下一步
+                </button>
+            </div>
+        </div>
+    </div>
+    <div style="height: 46px;"></div>
+    <br><br><br>
+</div>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<br><br><br>
+{include file="common/foot"}
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                imgList: [],
+                size: 0,
+
+                img1: '1',
+                img2: '',
+                img3: '',
+            }
+        },
+        methods: {}
+    })
+
+</script>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
+    <title></title>
+    <link rel="stylesheet" href="__FIR__/css/mui.min.css">
+    <!--App自定义的css-->
+
+
+    <link rel="stylesheet" type="text/css" href="__FIR__/css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="__FIR__/index/css/index.css">
+    <link rel="stylesheet" type="text/css" href="__FIR__/index/css/swiper-4.3.5.min.css">
+    <script type="text/javascript" src="__FIR__/index/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="__FIR__/index/js/swiper-4.3.5.min.js"></script>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="__FIR__/js/vue.js"></script>
+    <script src="__FIR__/js/vue.min.js"></script>
+    <script src="__FIR__/js/vue-resource.min.js"></script>
+    <script type="text/javascript" src="__FIR__/index/js/index.js"></script>
+    <script src="__FIR__/js/mui.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+    <link rel="stylesheet" href="__INDEX__/css/footer.css">
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 0.5px solid #E4E4E4;
+        }
+
+        .navbar a {
+            width: 20%;
+            float: left;
+            display: block;
+            color: #999999;
+            text-align: center;
+            padding: 0px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .main {
+            padding: 16px;
+            margin-bottom: 30px;
+            height: 1500px; /* Used in this example to enable scrolling */
+        }
+
+        .circle {
+            margin-left: -8px;
+        }
+
+        .mui-bar .mui-icon {
+            font-size: 24px;
+            position: relative;
+            z-index: 20;
+            padding-top: 10px;
+            padding-bottom: 0px;
+        }
+    </style>
+</head>
+<style>
+    .wsf-cl {
+        color: #FFFFFF;
+        padding-top: 10px;
+        position: relative;
+        top: 36%;
+    }
+
+    /*toast信息提示*/
+    .mui-toast-container {
+        bottom: 50% !important;
+    }
+
+    .mui-toast-message {
+        background: url(__FIR__/img/error.png) no-repeat center 10px #000;
+        opacity: 0.6;
+        color: #fff;
+        width: 180px;
+        padding: 30px 5px 10px 5px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none
+    }
+
+    #phone {
+        background-color: #ffffff;
+        margin-bottom: 0px;
+        */ padding: 22px 17px;
+    }
+
+    #ranks {
+        background-color: #ffffff;
+        margin-bottom: 0px;
+        */ padding: 22px 17px;
+    }
+
+    body {
+        background: #EBECED;
+        font-family: '微软雅黑'
+    }
+
+    #htx {
+        padding: 0px;
+        height: 1px;
+        background-color: #c8c7cc;
+        margin-left: -6px;
+    }
+
+    form {
+        width: 500px;
+        background: #ffffff;
+    }
+
+    label {
+        font-size: 14px;
+        color: #000000;
+        line-height: 40px;
+        margin-right: 10px;
+    }
+
+    input {
+        width: 212px;
+        height: 38px;
+        border-style: none;
+        padding: 0 4px;
+        border: 1px solid #C8C8C8;
+        margin-right: 10px;
+        outline: none;
+    }
+
+    .msgs {
+        display: inline-block;
+        width: 70px;
+        color: #fff;
+        border-radius: 5px;
+        margin-left: -21px;
+        font-size: 13px;
+        border: 1px solid #dd524d;
+        text-align: center;
+        height: 28px;
+        line-height: 26px;
+        background: #dd524d;
+        cursor: pointer;
+    }
+
+    div {
+        background: #f1f1f1
+    }
+
+    .div-conform {
+        padding: 17px 15px;
+        background: #f1f1f1;
+    }
+
+    form .msgs1 {
+        background: #ffffff;
+        color: #818080;
+        border: 1px solid #CCCCCC;
+    }
+</style>
+<body>
+
+<div id="app">
+    <div class="form" style="background: #ffffff;">
+
+        <div class="div-phone" style="background: #ffffff">
+            <label for="phone">&nbsp;&nbsp;&nbsp;手机号码：</label><input type="text" id="phone" v-model="phone"
+                                                                     style="width:50%;" class="infos"
+                                                                     placeholder="请输入手机"/>
+            <span class="msgs">获取验证码</span>
+        </div>
+        <div id="htx"></div>
+        <div class="div-ranks" style="background: #ffffff">
+            <label for="ranks">&nbsp;&nbsp;&nbsp;验证码:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="ranks"
+                                                                                                  v-model="code"
+                                                                                                  style="width:50%"
+                                                                                                  class="infos"
+                                                                                                  placeholder="请输入验证码"/>
+        </div>
+        <div class="div-conform">
+            <button type="button" @click="SubmitsZL" class="mui-btn mui-btn-danger mui-btn-block">提交</button>
+        </div>
+    </div>
+</div>
+
+{include file="common/foot"}
+
+</body>
+<script>
+    $(function () {
+        //获取短信验证码
+        var validCode = true;
+        $(".msgs").click(function () {
+            var numbers = /^1\d{10}$/;
+            var val = $('#phone').val().replace(/\s+/g, ""); //获取输入手机号码
+
+
+            if (!numbers.test(val) || val.length == 0) {
+                mui.toast('手机格式错误', {duration: 'long', type: 'div'})
+                return
+
+            }
+
+
+
+            var time = 60;
+            var code = $(this);
+            if (validCode) {
+                validCode = false;
+                code.addClass("msgs1");
+                $.post("{:url('/sendCode')}", {
+                    phone: val
+                }, function (data) {
+                    console.log(data)
+                }, 'json')
+
+                var t = setInterval(function () {
+                    time--;
+                    code.html(time + "秒");
+                    if (time == 0) {
+                        clearInterval(t);
+                        code.html("重新获取");
+                        validCode = true;
+                        code.removeClass("msgs1");
+                    }
+                }, 1000)
+            }
+        })
+    })
+
+
+    var $body = $('body');
+    document.title = '手机号码验证';
+    var $iframe = $('');
+    $iframe.on('load', function () {
+        setTimeout(function () {
+            $iframe.off('load').remove();
+        }, 0);
+    }).appendTo($body);
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag: '',
+            phone: '',
+            code: ''
+        },
+        methods: {
+            SubmitsZL() {
+
+                if (this.phone == '' || this.code == '') {
+                    mui.toast('填写完整在发布')
+                    return
+                }
+
+
+                var url = "{:url('/phoneCheck')}"
+                $.post(url, {
+                    // name : this.name,
+                    phone: this.phone,
+                    code: this.code,
+                }, (res) => {
+                    console.log(res)
+                    if (res.state == 'success') {
+                        mui.toast(res.msg)
+                        window.location.href = "{:url('/iGoods')}"
+                    } else {
+                        mui.toast(res.msg)
+                    }
+                }, 'json')
+
+            },
+        },
+
+    });
+</script>
+</html>

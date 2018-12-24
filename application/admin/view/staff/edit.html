@@ -1,0 +1,103 @@
+{extend name="common/add"}
+{block name="form"}
+
+<article class="page-container">
+    <form action="{:str_replace('id',$staff->staff_id,url('/staff/id'))}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">员工名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$staff->staff_name}" autocomplete="off" placeholder="员工名称" id="staff_name" name="staff_name">
+            </div>
+        </div>
+
+        <input type="hidden" name="_method" value="put" />
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">员工描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="staff_desc" cols="" rows="" class="textarea" placeholder="员工描述...最多250个字符">{$staff->staff_desc}</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/250</p>
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">员工性别：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="mt-20 skin-minimal" style="margin-top: 0px">
+                    <div class="radio-box">
+                        <input type="radio" value="2" id="radio-8" name="staff_sex">
+                        <label for="radio-8">男</label>
+                    </div>
+
+                    <div class="radio-box">
+                        <input type="radio" value="1" id="radio-9" name="staff_sex" checked>
+                        <label for="radio-9">女</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">员工编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$staff->staff_num}" autocomplete="off" placeholder="员工编号" id="staff_num" name="staff_num">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">员工手机号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$staff->staff_tel}" autocomplete="off" placeholder="员工手机号" id="staff_tel" name="staff_tel">
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+{/block}
+
+
+{block name="js"}
+
+<script type="text/javascript">
+    $(function(){
+
+        $("#form-member-add").validate({
+            rules:{
+                staff_num:{
+                    required:true,
+                },
+                staff_sex:{
+                    required:true,
+                },
+                staff_desc:{
+                    required:true,
+                },
+                staff_name:{
+                    required:true,
+                },
+
+            },
+            onkeyup:false,
+            focusCleanup:false,
+            // success:"valid",
+            // submitHandler:function(form){
+            // 	//$(form).ajaxSubmit();
+            // 	var index = parent.layer.getFrameIndex(window.name);
+            // 	//parent.$('.btn-refresh').click();
+            // 	parent.layer.close(index);
+            // }
+        });
+    });
+
+</script>
+
+{/block}

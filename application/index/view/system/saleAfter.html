@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>售后服务</title>
+</head>
+<style>
+    h5 {
+        margin: 5px 7px;
+    }
+    .ft12{font-size: 12px;}
+    #textarea{border: none;}
+</style>
+<!--标准mui.css-->
+<link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+<link rel="stylesheet" type="text/css" href="__FIR__/css/inside.css"/>
+<!--App自定义的css-->
+<link rel="stylesheet" type="text/css" href="__INDEX__/css/app.css"/>
+<link rel="stylesheet" href="__INDEX__/index/css/index1.css">
+<script type="text/javascript" src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="__INDEX__/index/js/swiper-4.3.5.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="__INDEX__/js/vue.min.js"></script>
+<script src="__INDEX__/js/element.min.js"></script>
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.1/skin/layer.css">
+<script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
+<body>
+
+<div class="mui-content" id="app">
+    <div class="mui-content-padded" style="margin: 5px;">
+        <p class="ft12">&nbsp; &nbsp;仅在与商家沟通无效或找不到商家的情况下在此投诉：</p>
+        <form class="mui-input-group">
+            <div  class="mui-input-row">
+                <label>联系电话</label>
+                <input type="text" v-model="tel" class="mui-input-clear" placeholder="请输入您的联系电话" maxlength="11">
+            </div>
+        </form>
+        <div class="mui-input-row" style="margin: 10px 5px;">
+            <textarea style="background: #ffffff" v-model="feedback_content"  rows="5" placeholder="请填写您需要投诉的详细内容"></textarea>
+        </div>
+    </div>
+    <button type="button" id="Submits" @click="SubmitsRZ()" class="mui-btn mui-btn-danger mui-btn-block">提交 </button>
+</div>
+
+
+
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+{include file="common/foot"}
+<script>
+
+    var vm = new Vue({
+
+        el: '#app',
+        data: {
+            tel : '',
+            feedback_content : '',
+        },
+        methods: {
+            SubmitsRZ(){
+                if (this.tel == '' || this.feedback_content == ''){
+                    alert('信息不完整')
+                    return
+                }
+
+                var url = "{:url('/iSaleAfter')}"
+                $.post(url,{
+                    user_tel : this.tel,
+                    feedback_content: this.feedback_content
+                },(res) => {
+                    if (res.state == 'success'){
+                        alert(res.msg)
+                        location.reload()
+                    }
+                    //
+                    // if (res.state == 'success'){
+                    //     mui.alert('投诉成功', '等待客服回访！', function() {
+                    //         location.reload()
+                    //     });
+                    // }else {
+                    //     alert(res.msg)
+                    // }
+
+                },'json')
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>

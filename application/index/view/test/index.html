@@ -1,0 +1,320 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <link rel="Bookmark" href="__PUB__/ico/bitbug_favicon.ico">
+    <link rel="Shortcut Icon" href="__PUB__/ico/bitbug_favicon.ico"/>
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+    <!--App自定义的css-->
+    <link rel="stylesheet" href="__INDEX__/css/footer.css">
+    <script src="__INDEX__/js/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="__INDEX__/index/css/swiper-4.3.5.min.css">
+    <script type="text/javascript" src="__INDEX__/index/js/swiper-4.3.5.min.js"></script>
+    <script src="http://47.52.138.95/haha/vue-resource-1.3.4.js"></script>
+</head>
+<style>
+    .zj {
+        height: 186px
+    }
+
+    .v-enter,
+    .v-leave-to {
+        opacity: 0;
+        transform: translateY(120px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.1s ease;
+    }
+</style>
+<body>
+<div id="app">
+
+    <div class="ht1"></div>
+    <div class="mui-content" style="background-color: #FFFFFF;margin: 10px;padding-top: 0px;">
+        <h5 class="line-heightwsf">推荐频道</h5>
+        <div>
+            <img src="__INDEX__/images/news_img2.png" height="198px" class="img-responsive el-wsf2"/>
+            <span class="el-wsf"><img src="__INDEX__/images/news_img1.png"
+                                      onclick="window.location.href='{:url('/iNews')}'" class="img-responsive mr2-wsf"/></span>
+        </div>
+    </div>
+    <div class="ht1"></div>
+
+
+    <transition-group>
+        <div class="mui-content" style="background-color: #FFFFFF;padding-top: 0px;" v-for="(good, key) in goods"
+             :key="key">
+
+            <div class="mui-content-padded" id="main">
+
+                <div class="mui-card-header mui-card-media">
+                    <img class="user_img" v-bind:src="good.user_face_img">
+                    <span class=" user_name-wsf"><img v-bind:src="uploads + '/' + good.member_img" class="volume-wsf"
+                                                      width="24px"
+                                                      height="20px"/>
+                <span class="mg24 cl" style="margin-left: 31px;position:relative;top:5px;"></span>
+                </span>
+
+                    <button type="button" id="pad0" class="mui-btn mui-btn-outlined"
+                            v-on:click="flower( good.goods_uid, this)"
+                    ><img
+                            src="__INDEX__/images/gz@2x.png"
+                            width="11px"
+                            height="10px"/> <span :class="good.goods_uid" style="color:#C39772">{{ good.goods_uid | isFlower }}</span>
+                    </button>
+
+
+                    <button type="button"
+                            v-on:click="collect( good.goods_id, this )"
+                            id="pad0" class="mui-btn mui-btn-outlined"><img
+                            src="__INDEX__/images/sc@2x.png"
+                            width="11px"
+                            height="10px"/> <span style="color:#C39772">{{ good.goods_id | isCollect }}</span>
+                    </button>
+
+                </div>
+
+
+                <p class="mg0-wsf">
+                    <img :src=" good.goods_imgs | firstImg " data-preview-src=""
+                         style="width:50%;height:180px;padding:0px 1px;" data-preview-group="1"/>
+                    <img :src=" good.goods_imgs | secondImg " data-preview-src=""
+                         style="width:50%;height:180px;float:right;padding:0px 1px;" data-preview-group="1"/>
+                </p>
+                <p class="mg0-wsf"><img src="__INDEX__/images/muwu.jpg" data-preview-src="" data-preview-group="1"
+                                        style="display: none;"/></p>
+                <p class="mg0-wsf"><img src="__INDEX__/images/shuijiao.jpg" data-preview-src="" data-preview-group="1"
+                                        style="display: none;"/></p>
+                <p class="op-wsf">
+                    {{ good.goods_name }}
+                </p>
+                <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed"
+                    style="margin-top: -40px;border-bottom: 1px solid #f3f3f3;">
+                    <li class="mui-table-view-cell" id="pad0">
+                        <div class="mui-table">
+                            <div class="mui-table-cell mui-col-xs-10">
+                                <h4 class="mui-ellipsis"><img src="__INDEX__/images/by@2x.png" width="20px"
+                                                              height="20px"/>&nbsp;<img
+                                        src="__INDEX__/images/bt@2x.png" width="20px" height="20px"/>&nbsp;<img
+                                        src="__INDEX__/images/yz@2x.png"
+                                        width="20px"
+                                        height="20px"/></h4>
+                                <h5>价格区间：RMB {{ good.goods_min_price }} ~&nbsp;{{ good.goods_max_price }}</h5>
+                                <p class="mui-h6 mui-ellipsis">距离结束:&nbsp;
+
+                                    <span :id="good.goods_id" class="settime"
+                                          :endTime="good.expriy_time | expireTime"></span>
+
+                                </p>
+                            </div>
+                            <div class="mui-table-cell mui-col-xs-5 mui-text-right">
+									<span class="mui-h5">
+                                        <img src="__INDEX__/images/see@2x.png" width="19px" height="17px"/>&nbsp;<span
+                                            class="top3">{{ good.goods_fav }}</span>&nbsp;
+									<img src="__INDEX__/images/dzx@2x.png" width="19px" height="17px"/>&nbsp;<span
+                                            class="top3"></span>
+									</span>
+
+                                <button type="button"
+                                        v-on:click="urlToEnter(good.goods_id)"
+                                        style="margin-top: 5px;margin-bottom: 10px;background-color: #C39772;border: none;"
+                                        class="mui-btn mui-btn-outlined"><img src="__INDEX__/images/yj@2x.png"
+                                                                              width="13px"
+                                                                              height="14px"/> <span
+                                        class="wt-wsf2">参与议价</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="mui-content" style="background-color: #FFFFFF;padding-top: 0px;min-height:100px;"></div>
+        </div>
+    </transition-group>
+
+</div>
+{include file="common/foot"}
+
+
+<script src="__INDEX__/com.js"></script>
+</body>
+<script>
+
+
+
+
+    var url = "{:config('qiniu')['qiniuUrl']}"
+
+    console.log(url)
+    var vm = new Vue({
+        el: '#app',
+        created() {
+            this.getList()
+        },
+        data: {
+            url: url,
+            uploads: "http://yipaizaixian.cn/think/public/uploads",
+            goods: [],
+            collects: [],
+            flows: []
+        },
+        methods: {
+
+            getList() {
+                this.$http.get('http://yipaizaixian.cn/think/testIndex').then(result => {
+                    var getData = JSON.parse(result.bodyText)
+                    this.collects = getData.collects,
+                    this.flows = getData.flows,
+                    this.goods = getData.goods
+
+                    // console.log(this.flows)
+                    // console.log(this.collects)
+                    console.log(this.goods)
+                })
+            },
+            urlToEnter(num) {
+                var addr = "{:url('/detail',['id' => 'addId'])}"
+                addr = addr.replace('addId', num)
+                window.location.href = addr
+                // console.log(addr)
+            },
+            // collect
+            collect(id, obj) {
+                console.log(id)
+                console.log($(obj))
+                var cObj = $(obj)
+                console.log(cObj)
+                var url = "{:url('/collect')}"
+                console.log($(obj).children('span').html())
+
+                $.post(url, {
+                    id: id
+                }, (res) => {
+
+                    if (res.state == 'success') {
+                        layer.msg(res.msg)
+                        $(obj).children('span').html('已收藏')
+                    } else if (res.state == 'error') {
+                        layer.msg(res.msg)
+                        $(obj).children('span').html('未收藏')
+                    }
+                }, 'json')
+            },
+
+            // flow
+            flower(id, obj) {
+                var url = "{:url('/flower')}"
+
+                var className = '.' + id
+
+                console.log('classname:' + className)
+
+                $.post(url, {
+                    id: id
+                }, (res) => {
+                    if (res.state == 'flow') {
+                        layer.msg(res.msg)
+                        $(className).html('取消关注')
+                    } else if (res.state == 'unflow') {
+                        layer.msg(res.msg)
+                        $(className).html('关注')
+                    }
+                }, 'json')
+            }
+        },
+        filters: {
+
+            firstImg(input) {
+                var firstImgAdd = url + input.split(',')[0]
+                return firstImgAdd
+            },
+            secondImg(input) {
+                var secondImgAdd = url + input.split(',')[1]
+                return secondImgAdd
+            },
+
+            expireTime(input) {
+                // console.log(input)
+                input = parseInt(input + '000')
+                // console.log(input)
+                var time = format(input)
+                // console.log(time)
+                return time
+            },
+
+            test(input) {
+                console.log(input)
+
+            },
+
+            // 是否关注
+            isFlower(input) {
+
+                var msg = ''
+                // console.log(arrHasValue(input, vm._data.flows))
+                if (arrHasValue(input, vm._data.flows)) {
+                    msg = '取消关注'
+                } else {
+                    msg = '关注'
+                }
+                // console.log(msg)
+                return msg
+            },
+
+            // 是否收藏
+            isCollect(input) {
+                var msg = ''
+                // console.log(arrHasValue(input, vm._data.flows))
+                if (arrHasValue(input, vm._data.collects)) {
+                    msg = '取消收藏'
+                } else {
+                    msg = '收藏'
+                }
+                // console.log(msg)
+                return msg
+            }
+        }
+    })
+
+
+    $(function () {
+        updateEndTime();
+        var num = 1
+        window.onscroll = function () {
+            //监听事件内容
+            if (getScrollHeight() == getWindowHeight() + getDocumentTop()) {
+                var url = "{:url('/testDown')}"
+                $.post(url, {
+                    'num': num
+                }, function (data) {
+                    // 未支付
+                    if (data.state == 'error') {
+                        return
+                    }
+                    if (data.goods == 0) {
+                        console.log('数据到底了')
+                        return
+                    }
+                    num++;
+                    // vm._data.goods.push(data)
+                    console.log(vm._data.goods)
+                    console.log(data)
+                    vm._data.goods.push(data.goods)
+                }, 'json')
+            }
+        }
+
+    });
+
+
+</script>
+
+
+</html>

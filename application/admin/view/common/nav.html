@@ -1,0 +1,38 @@
+<nav class="breadcrumb" id="nav">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> <span id="rightC"></span>  <span class="c-gray en">&gt;</span> <span id="leftC"></span>
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+
+<script>
+    var nav = {
+        type : { left : '产品管理', 'right' : '类别列表' },
+        goods : { left : '产品管理', 'right' : '商品列表' },
+        join : { left : '产品管理', 'right' : '参与列表' },
+        order : { left : '产品管理', 'right' : '成交列表' },
+        admin : { left : '系统管理', 'right' : '用户管理' },
+        role : { left : '系统管理', 'right' : '角色管理' },
+        auth : { left : '系统管理', 'right' : '权限管理' },
+        feedback : { left : '系统管理', 'right' : '投诉反馈' },
+        broad : { left : '轮播图管理', 'right' : '轮播图列表' },
+        news : { left : '新闻管理', 'right' : '新闻列表' },
+        users : { left : '会员管理', 'right' : '会员列表' },
+        dummy : { left : '会员管理', 'right' : '虚拟会员商品列表' },
+        unuser : { left : '会员管理', 'right' : '虚拟会员列表' },
+        member : { left : '会员管理', 'right' : '会员设置列表' },
+        message : { left : '会员管理', 'right' : '会员认证' },
+        level : { left : '会员管理', 'right' : '会员升级' },
+        info : { left : '协议管理', 'right' : '协议列表' },
+        staff : { left : '员工管理', 'right' : '员工列表' },
+    }
+
+
+    function leftF(){
+        var nowAdd = window.location.href;
+        nowAdd = nowAdd.substr((nowAdd.lastIndexOf('/') + 1), (nowAdd.lastIndexOf('.') - nowAdd.lastIndexOf('/') - 1));
+
+        $('#leftC').html(nav[nowAdd].right)
+        $('#rightC').html(nav[nowAdd].left)
+
+    }
+    leftF()
+</script>

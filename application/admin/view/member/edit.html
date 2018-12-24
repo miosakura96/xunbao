@@ -1,0 +1,92 @@
+{extend name="common/add"}
+{block name="form"}
+<article class="page-container">
+    <form action="{:str_replace('id',$member->member_id,url('/member/id'))}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">会员级别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$member->member_name}" autocomplete="off" placeholder="会员级别"  name="member_name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">会员上架时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$member->member_time}" autocomplete="off" placeholder="会员上架时间" name="member_time">
+            </div>
+        </div>
+
+        <input type="hidden" name="_method" value="put" />
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">在线藏品个数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$member->member_now_count}" autocomplete="off" placeholder="在线藏品个数" name="member_now_count">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">会员群发次数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$member->member_top_count}" autocomplete="off" placeholder="会员群发次数" name="member_top_count">
+            </div>
+        </div>
+
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">最大虚拟粉丝数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->max_fans}" autocomplete="off" placeholder="最小值" name="max_fans">
+                -
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->min_fans}" autocomplete="off" placeholder="最大值" name="min_fans">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">最大商品点赞数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->min_zan}" autocomplete="off" placeholder="最小值" name="min_zan">
+                -
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->max_zan}" autocomplete="off" placeholder="最大值" name="max_zan">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">最大浏览量：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->min_explorer}" autocomplete="off" placeholder="最小值" name="min_explorer">
+                -
+                <input type="text" class="input-text" style="width: 200px; " value="{$member->max_explorer}" autocomplete="off" placeholder="最大值" name="max_explorer">
+            </div>
+        </div>
+
+        {php}
+        $img = str_replace('\\','/',$member->member_img);
+        {/php}
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">会员类别图片：</label>
+            <div class="preview">
+                <div class="preview-box">
+                    <div class="preview-del">删除</div>
+                    <input id="file1" type="file" name="img" accept="image/*"/>
+                    <label for="file1" style="background: url(__UPL__/{$img}); background-size:150px 150px">上传文件</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+
+    </form>
+</article>
+{/block}
+
+
+{block name="js"}{/block}

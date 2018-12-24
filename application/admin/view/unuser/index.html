@@ -1,0 +1,81 @@
+﻿{extend name="common/inside"}
+{block name="table"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+        <a href="javascript:;" onclick="member_add('添加虚拟会员','{:url('/unuser/create')}',1000,'400')" class="btn btn-primary radius"><i
+                class="Hui-iconfont">&#xe600;</i> 添加虚拟会员</a></span>
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>序号</th>
+                <th>虚拟用户名</th>
+                <th>虚拟用户等级</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $users as $user}
+            <tr class="text-c">
+                <td>{$user->unuser_id}</td>
+                <td>{$user->unuser_name}</td>
+                <td>{$user->unuser_type}</td>
+                <td class="td-manage">
+                    <a title="编辑" href="javascript:;" onclick="member_edit('虚拟用户编辑','{:str_replace('id',$user->unuser_id,url('/unuser/id/edit'))}',1,1000,400)"
+                       class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="member_del(this,{$user->unuser_id})" class="ml-5"
+                       style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/block}
+
+
+{block name='js'}
+<script>
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var url = "{:url('/unuser/id')}"
+            console.log(url)
+            url = url.replace('id',id)
+
+            console.log(url)
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    if (data.state == 'success'){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:2,time:1000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data)
+
+                    // console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+
+{/block}
+
+
+
+

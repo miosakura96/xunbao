@@ -1,0 +1,55 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商品管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
+    <link rel="stylesheet" href="__INDEX__/css/app.css">
+    <title></title>
+    <style type="text/css">
+        .fth {
+            color: #8f8f94;
+        }
+        #wd50{
+            padding: 0px 4px;
+            width: 50%;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="mui-card" style="margin:auto">
+    <ul class="mui-table-view mui-grid-view mui-grid-9">
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-4" id="wd50" onclick="window.location.href = '{:url('/manage',['id' => 1])}'"
+            style="    border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;">
+            <a href="#">
+                <span id="top5"><img src="__INDEX__/images/yzs@2x.png" width="35px" height="35px"/></span>
+                <div class="mui-media-body" id="color30">已在售藏品</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-4" id="wd50" onclick="window.location.href = '{:url('/manage',['id' => 2])}'"
+            style="    border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;">
+            <a href="#">
+                <span id="top5"><img src="__INDEX__/images/ycs@2x.png" width="35px" height="35px"/></span>
+                <div class="mui-media-body" id="color30">已出售藏品</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-4" id="wd50" onclick="window.location.href = '{:url('/manage',['id' => 3])}'"
+            style="    border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD;">
+            <a href="#">
+                <span id="top5"><img src="__INDEX__/images/yxj@2x.png" width="35px" height="35px"/></span>
+                <div class="mui-media-body" id="color30">已下架藏品</div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<link rel="stylesheet" href="__INDEX__/css/footer.css">
+<br><br><br>
+{include file="common/foot"}
+</body>
+</html>

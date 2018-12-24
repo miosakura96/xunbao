@@ -1,0 +1,116 @@
+﻿{extend name="common/inside"}
+
+
+{block name="table"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"></span>
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>序号</th>
+                <th>升级信息</th>
+                <th>创建于</th>
+                <th>升级用户</th>
+                <th>升级等级</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $levels as $level}
+            <tr class="text-c">
+                <td>{$level->level_id}</td>
+                <td>{$level->level_content}</td>
+                <td>{$level->created_at}</td>
+                <td>{$level->user->user_name}</td>
+                <td>{$level->level_up_id}</td>
+                <td class="td-manage">
+
+                    {if $level->level_state == 0}
+                    <a href="javascript:;"
+                       onclick="member_add('查看提交信息','{:str_replace('id',$level->level_id,url('/level/id'))}')">查看提交信息</a>
+                    <a href="javascript:;" onclick="check(this,{$level->level_id},2,{$level->uid},{$level->level_up_id})">批准</a>
+                    <a href="javascript:;" onclick="check(this,{$level->level_id},1,{$level->uid},{$level->level_up_id})">驳回</a>
+                    {elseif $level->level_state == 1}
+                    <font color="red">已驳回</font>
+                    {elseif $level->level_state == 2}
+                    <font color="green">已批准</font>
+                    {/if}
+
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{/block}
+
+
+{block name='js'}
+<script>
+
+    function check(obj, id, state, uid, levelId) {
+
+        var str = state == 2 ? '是否批准?' : '是否驳回?'
+
+        layer.confirm(str, function (index) {
+
+            var url = "{:url('/admin/level/check')}"
+            $.post(url, {
+                level: id,
+                state: state,
+                uid: uid,
+                levelId : levelId
+            }, function (data) {
+
+                if (data.state == 'success') {
+                    alert(data.msg)
+                }
+
+                window.location.reload()
+            }, 'json')
+        });
+    }
+
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+
+            var url = "{:url('/broad/id')}"
+            console.log(url)
+            url = url.replace('id',id)
+
+            console.log(url)
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    if (data.state == 'success'){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    } else {
+                        layer.msg('删除失败!',{icon:2,time:1000});
+                    }
+
+                },
+                error:function(data) {
+                    console.log(data)
+
+                    // console.log(data.msg);
+                },
+            });
+        });
+    }
+
+</script>
+
+{/block}
+
+
+
+

@@ -1,0 +1,25 @@
+<aside class="Hui-aside">
+    <div class="menu_dropdown bk_2">
+
+        {foreach $topMenus as $topMenu}
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont">&#xe616;</i> {$topMenu->auth_name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    {foreach $menus as $menu}
+                        {if $topMenu->auth_id == $menu->auth_pid}
+                        {php}
+                            $url = '/' . $menu->url;
+                            $url = url($url);
+                        {/php}
+                            <li><a data-href="{$url}" data-title="{$menu->auth_name}" href="javascript:void(0)">{$menu->auth_name}</a></li>
+                        {/if}
+                    {/foreach}
+                </ul>
+            </dd>
+        </dl>
+        {/foreach}
+
+
+    </div>
+</aside>
