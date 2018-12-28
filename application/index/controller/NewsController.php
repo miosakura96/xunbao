@@ -11,7 +11,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::select();
+        $news = News::order('news_id','desc')->select();
         return $this->fetch('index',compact('news'));
     }
 

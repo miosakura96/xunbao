@@ -61,4 +61,13 @@ class LoginController extends Controller
             return $this->fetch('changePassword');
         }
     }
+
+    // 一键重新登陆
+    public function oneChange()
+    {
+        $adminId = session('_ADMIN_INFO_')->id;
+        $admin = Admin::find($adminId);
+        session('_ADMIN_INFO_',$admin);
+        urlToRed('重新登陆登录成功',url('/notAdmin'));
+    }
 }

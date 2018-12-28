@@ -41,6 +41,7 @@ class InfoController extends BaseController
         if ($request->isPost()) {
 
             $postData = $request->post();
+            $postData['info_content'] = htmlspecialchars_decode($postData['info_content']);
 
             $rs = Info::create($postData);
             if ($rs){
@@ -86,6 +87,7 @@ class InfoController extends BaseController
             if (empty($id)) parToURLExit('非法操作',url('/info'));
             $putData = $request->put();
 
+            $putData['info_content'] = htmlspecialchars_decode($putData['info_content']);
 
             unset($putData['_method']);
 

@@ -23,9 +23,11 @@
                                     {php}
                                         $imgs = explode(',',$val);
                                         foreach($imgs as $img){
-                                            echo "<img style='width: 60px; height: 60px; margin: 2px;' src='" . config('qiniu')['qiniuUrl'] . $img . "'>";
+                                            echo "<img style='width: 60px; height: 60px; margin: 2px;' src='" .$strRe . DS . $img ."'>";
                                         }
                                     {/php}
+                                {elseif $key == 'created_at' || $key == 'updated_at' || $key == 'expiry_time'}
+                                    {:date('Y-m-d H:i:s',$val)}
                                 {else /}
                                     {$val}
                                 {/if}

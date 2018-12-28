@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.1/skin/layer.css">
     <script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
 </head>
-<style>
+<style >
     .wsf-cl {
         color: #FFFFFF;
         padding-top: 10px;
@@ -89,25 +89,7 @@
                         <label>上传信息</label>
                     </div>
                     <div style="margin:20px 10px;">
-                        <div style="margin-top:20px;">
-                            <div id="uploadImgForm" class="uploadImgStyle2">
-                                <div class="mbupload_frame" id="imageBgc1"
-                                     style=" background:url(__FIR__/img/zm.png) no-repeat 50% 50%;">
-                                    <div class="mbupload_photoList">
-                                        <ul>
-                                            <li class="mbupload_on mbupload_addPic mbupload_addImg"></li>
-                                        </ul>
-                                        <p class="mbupload_textTip mbupload_f12">上传身份证正面图</p>
-                                    </div>
-                                    <div class="mbupload_bgimg">
-                                        <div class="iconSendImg mbupload_addImg"><input type="file" name="img1"
-                                                                                        ref="image1"
-                                                                                        @change="uploadImgs(1)">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div style="margin-top:20px;">
                             <div id="uploadImgForm2" class="uploadImgStyle2">
@@ -128,8 +110,31 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div style="margin-top:20px;">
+                            <div id="uploadImgForm3" class="uploadImgStyle2">
+                                <div class="mbupload_frame" id="imageBgc3"
+                                     style="background:url(__FIR__/img/zm.png) no-repeat 50% 50%;">
+                                    <div class="mbupload_photoList">
+                                        <ul>
+                                            <li class="mbupload_on mbupload_addPic mbupload_addImg"></li>
+                                        </ul>
+                                        <p class="mbupload_textTip mbupload_f12">上传身份证正面图</p>
+                                    </div>
+                                    <div class="mbupload_bgimg">
+                                        <div class="iconSendImg mbupload_addImg"><input type="file" name="chuanbushangqu"
+                                                                                        ref="image3"
+                                                                                        @change="uploadImgs(3)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="mui-btn mui-btn-danger mui-btn-block">下一步</button>
                     </div>
+
                 </div>
             </form>
 
@@ -223,10 +228,6 @@
                 console.log(_this.tel)
                 console.log(_this.card)
                 console.log(_this.user)
-
-
-
-
 
             },
 

@@ -23,6 +23,8 @@ class BaseController extends Controller
 
     public $viewRepStr;
 
+    public $file_path;
+
 
     public function __construct(Request $request = null)
     {
@@ -61,6 +63,10 @@ class BaseController extends Controller
 
     public function isLogin()
     {
+        $recordVal = empty($_SERVER['PATH_INFO']) ? '/' : str_replace('.html','',$_SERVER['PATH_INFO']);
+        // 一次性缓存
+        session('onceUrl',$recordVal);
+
         $user_info = session('user_info');
         if (empty($user_info)) {
             echo "<script> window.location.href = '" . url('/index/login/login'). "' </script>";
@@ -89,6 +95,7 @@ class BaseController extends Controller
             }
         }
 
+        $this->file_path = config('view_replace_str')['__IMG__'];
         $this->flower = $tempFlows;
         $this->collect = $tempCollects;
         $this->viewRepStr = config('view_replace_str')['__UPL__'];

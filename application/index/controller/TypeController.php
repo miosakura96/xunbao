@@ -22,11 +22,12 @@ class TypeController extends BaseController
 
     public function type()
     {
+        $filePath = $this->file_path;
         $id = input('id',null,'int');
         $types = Types::select();
         $user = $this->nowUser;
         $viewRepStr = $this->viewRepStr;
-        return $this->fetch('type', compact('types', 'user', 'id','viewRepStr'));
+        return $this->fetch('type', compact('types', 'user', 'id','viewRepStr','filePath'));
     }
 
     public function typeData()
@@ -53,7 +54,7 @@ class TypeController extends BaseController
             if($this->nowUser->is_bond == 1){
                 return json([
                     'state' =>  'error',
-                    'msg'   =>  '请先交纳保证金'
+                    'msg'   =>  '请付费预览'
                 ]);
             }
 

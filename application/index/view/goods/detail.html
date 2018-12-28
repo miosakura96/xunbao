@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>藏品详情</title>
+    <title>{$good->goods_name}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -86,7 +86,7 @@
         #see-wsf {
             z-index: 2;
             position: absolute;
-            margin-top: -51%;
+            margin-top: -269px;
             margin-left: -2px;
         }
 
@@ -293,7 +293,7 @@
 
         p img {
             max-width: 100%;
-            height: auto;
+            /*height: auto;*/
         }
 
         .user_name {
@@ -414,16 +414,17 @@
             color: #ffffff; /*background-color: #000;*/
         }
 
+
     </style>
 </head>
 <body>
 <div class="swiper-container">
-    <div class="swiper-wrapper" style="height: 200px;">
+    <div class="swiper-wrapper" style="height: 280px;">
         {php}
         $imgs = explode(',',$good['goods_imgs']);
         {/php}
         {foreach $imgs as $img}
-        <img class="swiper-slide" src="{:config('qiniu')['qiniuUrl'] . $img}">
+        <img class="swiper-slide" src="{$filePath}/{$img}" >
         {/foreach}
     </div>
     <div class="swiper-pagination" style="width: 20%;"></div>
@@ -432,8 +433,8 @@
 				<span class="mui-h5">
 					<span class="zs-wsf"><img src="__INDEX__/images/zan2.png" class="top3" width="19px"
                                               height="17px"/>&nbsp;<span>{$good->goods_fav}</span>&nbsp;</span>
-					<!--<span class="zs-wsf"><img src="__INDEX__/images/see2.png" class="top3" width="19px"-->
-                                              <!--height="17px"/>&nbsp;<span>269</span></span>-->
+					<span class="zs-wsf"><img src="__INDEX__/images/see2.png" class="top3" width="19px"
+                                              height="17px"/>&nbsp;<span>{$good->goods_collect}</span></span>
 				</span>
 </div>
 <div class="mui-content" style="background-color: #FFFFFF;padding-top: 0px;">
@@ -467,9 +468,9 @@
     <div class="mui-card-header mui-card-media">
         <div class="mui-input-row">
             <input type="search" id="price" class="mui-input-clear"
-                   style="width:85%;margin-bottom: 0px;background-color: #E4E4E4;color: #C39772;"
-                   placeholder="">&nbsp; <span class="cl" onclick="joinGo()">
-                                 参与
+                   style="width:75%;margin-bottom: 0px;background-color: #E4E4E4;color: #C39772;"
+                   placeholder="请输入价格">&nbsp; <span class="cl" onclick="joinGo()">
+                                 我要议价
               </span>
         </div>
     </div>
@@ -488,7 +489,39 @@
 
 </div>
 
-{include file="common/foot"}
+<div class="mui-card" style="margin:auto;bottom: 0px;position: fixed; width: 100%;">
+    <ul class="mui-table-view mui-grid-view mui-grid-9">
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-4" id="wd20" onclick="window.location.href='{:url('/')}'">
+            <a href="#">
+                <span  ><img src="__INDEX__/images/sy@2x.png" width="20px" height="20px"/></span>
+                <div class="mui-media-body" style="margin-top:6px;">首页</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-4" id="wd20" onclick="window.location.href='{:url('/iTypes')}'">
+            <a href="#"   >
+                <span  ><img src="__INDEX__/images/fl@2x.png" width="20px" height="20px"/></span>
+                <div class="mui-media-body" style="margin-top:6px;">分类</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-4" id="wd20" onclick="window.location.href='{:url('/iGoods')}'">
+            <a href="#"    style="height: 50px;">
+                <span><img src="__INDEX__/images/fb.png" width="50px" height="36px"/></span>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-4" id="wd20" onclick="window.location.href='{:url('/iMessage')}'">
+            <a href="#">
+                <span><img src="__INDEX__/images/xx@2x.png" width="20px" height="20px"/></span>
+                <div class="mui-media-body" style="margin-top:6px;">消息</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-4" id="wd20"  onclick="window.location.href='{:url('/iMyself')}'">
+            <a href="#">
+                <span  ><img src="__INDEX__/images/wd@2x.png" width="20px" height="20px"/></span>
+                <div class="mui-media-body" style="margin-top:6px;">我的</div>
+            </a>
+        </li>
+    </ul>
+</div>
 </body>
 <script>
     function joinGo() {
@@ -554,6 +587,32 @@
         setTimeout("updateEndTime()", 1000);
     }
 
+    window.onload = function() {
+        var mySwiper = new Swiper ('.swiper-container', {
+            autoplay: true,//可选选项，自动滑动
+            direction: 'horizontal',
+            loop: true,
+            autoplay:{
+                disableOnInteraction: false,
+            },
+
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // 如果需要滚动条
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        })
+    }
 </script>
 
 </html>

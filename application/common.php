@@ -52,3 +52,9 @@ function shuffleNumber($number, $min, $max){
     $val = rand($number - $min, $number + $max);
     return $val;
 }
+
+// 返回地址
+function regStr(){
+    $str = config('view_replace_str')['__IMG__'];
+    return $str;
+}

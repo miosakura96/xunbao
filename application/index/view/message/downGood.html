@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Hello MUI</title>
+    <title>{$good->goods_name}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="__INDEX__/css/mui.min.css">
     <link rel="stylesheet" href="__INDEX__/css/app.css">
     <script src="__INDEX__/index/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="__FIR__/index/css/swiper-4.3.5.min.css">
+    <script type="text/javascript" src="__FIR__/index/js/swiper-4.3.5.min.js"></script>
 
     <!--App自定义的css-->
     <style type="text/css">
@@ -409,29 +411,17 @@
 </head>
 
 <body>
-<div id="slider" class="mui-slider" style="    max-height: 38%;">
-    <div class="mui-slider-group mui-slider-loop">
 
+<div class="swiper-container">
+    <div class="swiper-wrapper" style="height: 200px;">
         {php}
-            $imgs = explode(',',$good->goods_imgs);
+        $imgs = explode(',',$good->goods_imgs);
         {/php}
-
         {foreach $imgs as $img}
-        <div class="mui-slider-item mui-slider-item-duplicate">
-            <a href="#">
-                <img src="{:config('qiniu')['qiniuUrl'] . $img}">
-            </a>
-        </div>
+        <img class="swiper-slide" src="{$filePath}/{$img}">
         {/foreach}
-
     </div>
-
-    <div class="mui-slider-indicator">
-        <div class="mui-indicator mui-active"></div>
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator"></div>
-        <div class="mui-indicator"></div>
-    </div>
+    <div class="swiper-pagination" style="width: 20%;"></div>
 </div>
 <div class="mui-table-cell mui-col-xs-12 mui-text-right" id="see-wsf"></div>
 
@@ -466,15 +456,34 @@
 
 {include file="common/foot"}
 </body>
-<script src="__INDEX__/js/mui.min.js"></script>
-<script src="__INDEX__/js/mui.zoom.js"></script>
-<script src="__INDEX__/js/mui.previewimage.js"></script>
+
 <script>
-    mui.previewImage();
-    var gallery = mui('.mui-slider');
-    gallery.slider({
-        interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
-    });
+    window.onload = function() {
+        var mySwiper = new Swiper ('.swiper-container', {
+            autoplay: true,//可选选项，自动滑动
+            direction: 'horizontal',
+            loop: true,
+            autoplay:{
+                disableOnInteraction: false,
+            },
+
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // 如果需要滚动条
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        })
+    }
 </script>
 
 

@@ -33,7 +33,7 @@ class LoginController extends Controller
      */
     public function login()
     {
-        $link = 'http://yipaizaixian.cn/' . url('index/login/autoLogin');
+        $link = config('login')['redUrl'] . url('index/login/autoLogin');
         $appid = $this->appid;
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $appid . '&redirect_uri=' . $link . '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
         $this->redirect($url);
@@ -46,7 +46,6 @@ class LoginController extends Controller
         $secret = $this->appsec;
         $code = $_GET["code"];
 
-
         $get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
 
         $ch = curl_init();
@@ -58,12 +57,17 @@ class LoginController extends Controller
         curl_close($ch);
         $json_obj = json_decode($res, true);
 
-
-
+//        dump($json_obj);
+//
+//        die();
         //根据openid和access_token查询用户信息
         $access_token = $json_obj['access_token'];
         $openid = $json_obj['openid'];
         $get_user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token . '&openid=' . $openid . '&lang=zh_CN';
+
+//        echo $access_token;
+////
+//        die();
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $get_user_info_url);
@@ -75,14 +79,16 @@ class LoginController extends Controller
 
         //解析json
         $user_obj = json_decode($res, true);
-
+//
+//        dump($user_obj);
+//        die();
 
         $user_open_id = $user_obj['openid'];
         $user = Users::where('open_id',$user_open_id)->find();
         // 如果用户已经存在，取出信息直接登录，否则创建用户
         if (empty($user)){
             // first Login
-            $user = Users::create([
+            $rs = $user = Users::create([
                 'open_id'           =>  $user_obj['openid'],
                 'user_name'         =>  $user_obj['nickname'],
                 'user_face_img'     =>  $user_obj['headimgurl'],
@@ -91,10 +97,15 @@ class LoginController extends Controller
         }
         // 写入session
         session('user_info',$user);
+
+        $redUrl = (session('onceUrl'));
+        if (!empty(session('onceUrl'))) {
+            session('onceUrl', null);
+            return $this->redirect(url($redUrl));
+        }
+
         // 跳转主页面
         return $this->redirect(url('/'));
     }
-
-
 
 }

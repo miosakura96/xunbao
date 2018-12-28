@@ -65,7 +65,10 @@ class GoodsController extends BaseController
 
         $this->assign('goodData', $goodData);
         $this->assign('goodsKey', $goodsKey);
-        return $this->fetch('read');
+
+        $strRe = config('view_replace_str')['__IMG__'];
+
+        return $this->fetch('read',compact('strRe'));
     }
 
     /**

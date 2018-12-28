@@ -415,7 +415,7 @@
         $imgs = explode(',',$good['goods_imgs']);
         {/php}
         {foreach $imgs as $img}
-        <img class="swiper-slide" src="{:config('qiniu')['qiniuUrl'] . $img}">
+        <img class="swiper-slide" src="{:regStr()}/{$img}">
         {/foreach}
     </div>
     <div class="swiper-pagination" style="width: 20%;"></div>

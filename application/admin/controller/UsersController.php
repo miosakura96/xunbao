@@ -131,7 +131,7 @@ class UsersController extends BaseController
     public function delete($id)
     {
         if (empty($id)) return json([ 'state' => 'error', 'msg' => '非法操作' ]);
-        $rs = Staff::destroy($id);
+        $rs = Users::destroy($id);
         if ($rs) return json([ 'state' => 'success', 'msg' => '删除成功' ]);
     }
 }

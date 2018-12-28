@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use Doctrine\Common\Cache\RedisCache;
 use Thenbsp\Wechat\Payment\Jsapi\PayChoose;
 use Thenbsp\Wechat\Payment\Unifiedorder;
 use Thenbsp\Wechat\Wechat\AccessToken;
@@ -20,11 +21,12 @@ class PayController extends BaseController
     {
         $redis = new \Redis();
         $redis->connect('127.0.0.1', 6379);
+
         $cacheDriver = new \Doctrine\Common\Cache\RedisCache();
         $cacheDriver->setRedis($redis);
 
-        $appid = 'wxaefc410676bb9a36';
-        $appsec = 'eb76a85a576ad84dea7d604876c6bde1';
+        $appid = config('weixin')['appid'];
+        $appsec = config('weixin')['appsec'];
         $accessToken = new AccessToken($appid,$appsec);
         $accessToken->setCache($cacheDriver);
 

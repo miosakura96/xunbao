@@ -30,7 +30,13 @@
                         {/if}
                     {/foreach}
                 </td>
-                <td>{$good->user->user_name}</td>
+                <td>
+                    {if empty($good->user->user_name)}
+                        <font color="#ffa07a">此账号已被删除</font>
+                    {else /}
+                        {$good->user->user_name}
+                    {/if}
+                </td>
                 <td>{$good->goodState()}</td>
                 <td class="td-manage">
 

@@ -73,9 +73,10 @@ class BroadController extends BaseController
             if ($info){
                 $postData['broad_img'] = $info->getSaveName();
 
-                $upImg =  ROOT_PATH . 'public' . DS . 'uploads' . DS . $postData['broad_img'];
-                // 存入七牛
-                $this->uploader->putFile($this->token, $postData['broad_img'], $upImg);
+                // 不存入七牛
+//                $upImg =  ROOT_PATH . 'public' . DS . 'uploads' . DS . $postData['broad_img'];
+//                // 存入七牛
+//                $this->uploader->putFile($this->token, $postData['broad_img'], $upImg);
             }else{
                 sonToReuExit($file->getError());
             };
@@ -130,9 +131,10 @@ class BroadController extends BaseController
                 if ($info){
                     $putData['broad_img'] = $info->getSaveName();
 
-                    $upImg =  ROOT_PATH . 'public' . DS . 'uploads' . DS . $putData['broad_img'];
-                    // 存入七牛
-                    $this->uploader->putFile($this->token, $putData['broad_img'], $upImg);
+                    // 不存入七牛
+//                    $upImg =  ROOT_PATH . 'public' . DS . 'uploads' . DS . $putData['broad_img'];
+//                    // 存入七牛
+//                    $this->uploader->putFile($this->token, $putData['broad_img'], $upImg);
 
                 }else{
                     sonToReuExit($file->getError());

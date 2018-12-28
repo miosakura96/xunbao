@@ -24,16 +24,15 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/layer/2.1/skin/layer.css">
 <script src="https://cdn.bootcss.com/layer/2.1/layer.js"></script>
 <div class="mui-content" id="app">
-    <div class="mui-content-padded" style="margin: 0px;">
-        <p class="ft12"> &nbsp; &nbsp;仅用于商家查询我方公司员工信息：</p>
-        <form class="mui-input-group">
-            <div  class="mui-input-row">
-                <label>员工编号</label>
-                <input type="text" class="mui-input-clear" v-model="staff_id" placeholder="请输入员工编号" maxlength="11">
-            </div>
-        </form>
+    <div class="mui-content-padded" style="margin: 0px;background: #ffffff">
+        <div style="font-size:15px;color:#C39772;text-align: center" >艺拍馆官方员工查询</div>
+        <p style="padding: 5px">温馨提示：由于平台影响力较大，如果声称有艺拍馆官方工作人员与您联系，可在此页面查询验证。</p>
+        <div class="ht1"></div>
+        <label style="text-align: left;color:#C39772;padding: 5px">输入手机号核实查询:</label>
+        <input type="text" style="background: #F2F2F2;text-align: center;" class="mui-input-clear" v-model="staff_id" placeholder="请输入员工手机号" maxlength="11">
+        <input type="text" style="background: #F2F2F2;text-align: center;margin-top: 10px"  v-if="result" class="mui-input-clear" v-model="msg"  readonly maxlength="11">
     </div>
-    <button type="button" id="Submits" @click="SubmitsRZ()" class="mui-btn mui-btn-danger mui-btn-block">提交 </button>
+    <button type="button" id="Submits" @click="SubmitsRZ()" class="mui-btn mui-btn-danger mui-btn-block">点击查询</button>
 </div>
 <link rel="stylesheet" href="__INDEX__/css/footer.css">
 {include file="common/foot"}
@@ -56,7 +55,9 @@
 
         el: '#app',
         data: {
-            staff_id : ''
+            staff_id : '',
+            result : false,
+            msg : ''
         },
         methods: {
             SubmitsRZ(){
@@ -68,8 +69,17 @@
                 $.post(url,{
                     staff_id: this.staff_id
                 },(res) => {
+                    this.result = true
 
-                    layer.msg(res.msg)
+                    this.msg = res.msg
+                    // if (res.state == 'error') {
+                    //
+                    // }else{
+                    //     // this.result =
+                    // }
+
+
+                    // layer.msg(res.msg)
 
                 },'json')
             }

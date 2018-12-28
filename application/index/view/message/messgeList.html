@@ -34,7 +34,7 @@
 								{php}
 									$imgs = explode(',',$good->goods_imgs);
 								{/php}
-								<img class="mui-media-object mui-pull-left" id="sp-img-wsf" style="max-width: 60px;height: 60px;" src="{:config('qiniu')['qiniuUrl']}{$imgs[0]}">
+								<img class="mui-media-object mui-pull-left" id="sp-img-wsf" style="max-width: 60px;height: 60px;" src="{$filePath}/{$imgs[0]}">
 								<div class="mui-media-body" style="white-space: normal; font-size: 15px;width: 208px;">
 									{$good->goods_name}
 								</div>

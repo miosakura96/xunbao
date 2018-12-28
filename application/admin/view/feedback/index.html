@@ -23,7 +23,13 @@
                 <td>{$feedback->feedback_id}</td>
                 <td>{:mb_substr($feedback->feedback_content,0,9)}...</td>
                 <td>{$feedback->feedback_phone}</td>
-                <td>{$feedback->user->user_name}</td>
+                <td>
+                    {if empty($feedback->user->user_name)}
+                        <font color="#ffa07a">此账号已被销毁</font>
+                    {else /}
+                        {$feedback->user->user_name}
+                    {/if}
+                </td>
                 <td class="td-manage">
                     <a title="查看投诉信息" href="javascript:;" onclick="member_edit('查看投诉信息','{:str_replace('id',$feedback->feedback_id,url('/feedback/id'))}','4','','800')"
                        class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>

@@ -12,8 +12,13 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class TestController extends BaseController
+class TestController extends Controller
 {
+
+    public function __construct(Request $request = null)
+    {
+        parent::__construct($request);
+    }
 
     public function index()
     {
@@ -79,7 +84,7 @@ class TestController extends BaseController
 //            if($this->nowUser->is_bond == 1){
 //                return json([
 //                    'state' =>  'error',
-//                    'msg'   =>  '请先交纳保证金'
+//                    'msg'   =>  '请付费预览'
 //                ]);
 //            }
             $num = empty($request->post()['num']) ? 1 : $request->post()['num'];
@@ -115,4 +120,20 @@ class TestController extends BaseController
     }
 
 
+    public function testS()
+    {
+        session('haha',[
+            'name'  =>  'mammiya',
+            'age'  =>  '12',
+            'addr'  =>  'AnHuiWuHu',
+            'sex'  =>  '1',
+        ]);
+
+        dump($_SESSION);
+    }
+
+    public function sClear()
+    {
+        session('user_info',null);
+    }
 }

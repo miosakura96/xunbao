@@ -78,9 +78,9 @@
                 {php}
                     $imgs = explode(',',$good->goods_imgs);
                 {/php}
-                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{:config('qiniu')['qiniuUrl']}{$imgs[0]}">
+                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{$filePath}/{$imgs[0]}">
                 <div class="mui-media-body" style="white-space: normal; font-size: 15px;">
-                        藏品标题：{$good->goods_name}藏品标题藏品标题藏品标题藏品标题藏品标题藏品标题藏品标题
+                        藏品标题：{$good->goods_name}
                     <p></p>
                     <p class="mui-h6 mui-ellipsis" id="line26"></p>
                 </div>

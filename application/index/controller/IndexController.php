@@ -20,8 +20,9 @@ class IndexController extends BaseController
         $user = $this->nowUser;
         $viewRepStr = $this->viewRepStr;
         $qiNiuUrl = config('qiniu')['qiniuUrl'];
+        $filePath = $this->file_path;
 
-        return $this->fetch('index', compact('broadcasts', 'types', 'user' , 'viewRepStr', 'qiNiuUrl'));
+        return $this->fetch('index', compact('broadcasts', 'types', 'user' , 'viewRepStr', 'qiNiuUrl','filePath'));
     }
 
 
@@ -48,7 +49,7 @@ class IndexController extends BaseController
             if($this->nowUser->is_bond == 1){
                 return json([
                     'state' =>  'error',
-                    'msg'   =>  '请先交纳保证金'
+                    'msg'   =>  '请付费预览'
                 ]);
             }
 

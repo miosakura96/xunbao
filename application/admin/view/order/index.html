@@ -31,10 +31,22 @@
                 <td>{$order->buy_name}</td>
                 <td>{$order->order_price}</td>
                 <td>
-                    <img src="{:config('qiniu')['qiniuUrl']}{$order->goods_img}" alt="" style="width: 33px;height: 33px;">
+                    <img src="{$strReg}/{$order->goods_img}" alt="" style="width: 33px;height: 33px;">
                 </td>
-                <td>{$order->buyer->user_tel}</td>
-                <td>{$order->seller->user_tel}</td>
+                <td>
+                    {if empty($order->buyer->user_tel)}
+                        <font color="#ffa07a">暂无电话信息</font>
+                    {else /}
+                        {$order->buyer->user_tel}
+                    {/if}
+                </td>
+                <td>
+                    {if empty($order->seller->user_tel)}
+                    <font color="#ffa07a">暂无电话信息</font>
+                    {else /}
+                    {$order->seller->user_tel}
+                    {/if}
+                </td>
             </tr>
             {/foreach}
             </tbody>

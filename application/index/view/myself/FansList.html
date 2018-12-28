@@ -19,10 +19,19 @@
             {foreach $fans as $fan}
             <li class="mui-table-view-cell mui-media">
                 <a href="javascript:;">
-                    <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{$fan->follow->user_face_img}">
+                    <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="
+                        {if !empty($fan->follow->user_face_img)}
+                            {$fan->follow->user_face_img}
+                        {/if}
+                    ">
                     <div class="mui-media-body">
-                        <p class="center">{$fan->follow->user_name}</p>
-                        <!--<span class="price_see" onclick="window.location.href='{:url('/iStore',['id' => $fan->follow->user_id])}'">查看</span>-->
+                        <p class="center">
+                            {if !empty($fan->follow->user_name)}
+                                {$fan->follow->user_name}
+                            {else /}
+                                <font color="#8a2be2">此用户已注銷</font>
+                            {/if}
+                        </p>
                     </div>
                 </a>
             </li>

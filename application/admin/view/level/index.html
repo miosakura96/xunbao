@@ -24,7 +24,13 @@
                 <td>{$level->level_id}</td>
                 <td>{$level->level_content}</td>
                 <td>{$level->created_at}</td>
-                <td>{$level->user->user_name}</td>
+                <td>
+                    {if empty($level->user->user_name)}
+                        <font color="#ffa07a">此号被人删除</font>
+                    {else /}
+                        {$level->user->user_name}
+                    {/if}
+                </td>
                 <td>{$level->level_up_id}</td>
                 <td class="td-manage">
 

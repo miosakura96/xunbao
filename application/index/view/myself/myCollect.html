@@ -41,7 +41,7 @@
                                         $img = $collect->good->goods_imgs;
                                         $img = explode(',',$img);
                                     {/php}
-                                    <img class="mui-media-object mui-pull-left" id="" style="width: 30px; height: 30px;" src="{:config('qiniu')['qiniuUrl']}{$img[0]}">
+                                    <img class="mui-media-object mui-pull-left" id="" style="width: 30px; height: 30px;" src="{:regStr()}/{$img[0]}">
                                     <div class="mui-media-body">
                                         <p class="center">{$collect->good->goods_name}</p>
                                         <span class="price_see" onclick="window.location.href='{:url('/detail',['id' => $collect->gid])}'">查看</span>

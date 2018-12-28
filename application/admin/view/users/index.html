@@ -25,8 +25,8 @@
                 <td>{$user->user_id}</td>
                 <td>{$user->we_chat_name}</td>
                 <td>{$user->user_tel}</td>
-                <td>{$user->is_auth}</td>
-                <td>{$user->user_type}</td>
+                <td>{$user->isAuth()}</td>
+                <td>{$user->userLevel()}</td>
                 <td>{$user->created_at}</td>
                 <td>{$user->userType()}</td>
                 <td class="td-manage">
@@ -51,7 +51,7 @@
     function member_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
 
-            var url = "{:url('/user/id')}"
+            var url = "{:url('/users/id')}"
             console.log(url)
             url = url.replace('id',id)
 

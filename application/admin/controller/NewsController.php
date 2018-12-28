@@ -51,6 +51,8 @@ class NewsController extends BaseController
                 sonToReuExit($file->getError());
             };
 
+            $postData['news_content'] = htmlspecialchars_decode($postData['news_content']);
+
             $rs = News::create($postData);
             if ($rs){
                 parToURLExit('添加成功',url('/news'));
@@ -104,6 +106,7 @@ class NewsController extends BaseController
                 };
             }
             unset($putData['_method']);
+            $putData['news_content'] = htmlspecialchars_decode($putData['news_content']);
 
             $rs = News::where('news_id',$id)->update($putData);
             if ($rs){

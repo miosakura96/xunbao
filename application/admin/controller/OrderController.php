@@ -16,8 +16,9 @@ class OrderController extends BaseController
     public function index()
     {
         $orders = Order::order('order_id','desc')->select();
+        $strReg = config('view_replace_str')['__IMG__'];
         $this->assign('orders',$orders);
-        return $this->fetch('index');
+        return $this->fetch('index',compact('strReg'));
     }
 
     /**

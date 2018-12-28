@@ -61,7 +61,7 @@ class JsApiController extends Controller
             'noncestr' => $this->nocestr,
             'timestamp' => $this->timestamp,
             'jsapi_ticket' => $this->make_ticket(),
-            'url' => "http://yipaizaixian.cn/think/iGoods.html"
+            'url' => "http://xunbaosc.com/think/iGoods.html"
         );
         ksort($tmpArr, SORT_STRING);
         $string1 = http_build_query( $tmpArr );

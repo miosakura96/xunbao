@@ -41,7 +41,7 @@ return [
     // 是否开启多语言
     'lang_switch_on'         => false,
     // 默认全局过滤方法 用逗号分隔多个
-    'default_filter'         => '',
+    'default_filter'         => 'htmlspecialchars',
     // 默认语言
     'default_lang'           => 'zh-cn',
     // 应用类库后缀
@@ -140,11 +140,12 @@ return [
 
     // 视图输出字符串内容替换
     'view_replace_str'       => [
-        '__ADMIN__' =>  'http://yipaizaixian.cn/think/public/admin',
-        '__PUB__' =>  'http://yipaizaixian.cn/think/public',
-        '__UPL__' =>  'http://yipaizaixian.cn/think/public/uploads',
-        '__INDEX__' =>  'http://yipaizaixian.cn/think/public/index',
-        '__FIR__'   =>  'http://yipaizaixian.cn/think/public/first',
+        '__ADMIN__' =>  'http://xunbaosc.com/think/public/admin',
+        '__PUB__' =>  'http://xunbaosc.com/think/public',
+        '__UPL__' =>  'http://xunbaosc.com/think/public/uploads',
+        '__INDEX__' =>  'http://xunbaosc.com/think/public/index',
+        '__FIR__'   =>  'http://xunbaosc.com/think/public/first',
+        '__IMG__'   =>  'http://xunbaosc.com/think/public/imgs'
     ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -158,7 +159,7 @@ return [
     'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
 
     // 错误显示信息,非调试模式有效
-    'error_message'          => '页面错误！请稍后再试～',
+    'error_message'          => '服务器累了，请稍后再试😄',
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
@@ -245,16 +246,16 @@ return [
 
     // 微信
     'weixin'            =>  [
-        'appid'     =>   'wxaefc410676bb9a36',
-        'appsec'    =>   'eb76a85a576ad84dea7d604876c6bde1',
-        'mid'       =>   '1518978701',
-        'key'       =>   '12345678912345678912345678912345',
-        'price'     =>   50000
+        'appid'     =>   'wxc2a3dffce7a6637f',
+        'appsec'    =>   'c0e58da678e05e297b222c34ad3697ab',
+        'mid'       =>   '1519378251',
+        'key'       =>   '12345678998765432112345678912345',
+        'price'     =>   1
     ],
 
     // 七牛配置
     'qiniu'     =>  [
-        'ak'        =>  'GbIMqbtEylW6itrGvTelfKcTXxqqlqtvMH4I4KHc',
+        'ak'        =>  'GbIMqbtEylW6itrGvTelfKcTXxqqlqtvMH4I4KiMyHc',
         'sk'        =>  'IaJUtSkaB_CXyKsjXBIPHN1Tezmrg8jBB5L8F8nR',
         'qiniuUrl'  =>  'http://pjjxwpiox.bkt.clouddn.com/'
     ],
@@ -266,7 +267,9 @@ return [
         'sign_name'    =>  '汉唐文化',
         'code'  =>  'SMS_152542321',
     ],
-
+    'login'     =>  [
+        'redUrl'    =>  'http://xunbaosc.com/'
+    ],
     // 首页以及分类显示
     'zhanshi' => [
         'home'  =>  1,

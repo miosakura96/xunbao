@@ -27,7 +27,7 @@
                                     {php}
                                         $imgs = explode(',',$val);
                                         foreach($imgs as $img){
-                                            echo "<img style='width: 60px; height: 60px; margin: 2px;' src='" . config('qiniu')['qiniuUrl'] . $img . "'>";
+                                            echo "<img style='width: 60px; height: 60px; margin: 2px;' src='" . regStr() . $img . "'>";
                                         }
                                     {/php}
                                 {else /}

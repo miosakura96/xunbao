@@ -27,14 +27,19 @@ class AuthController extends BaseController
         if ($request->isPost()) {
             $postData = $request->post();
 
-            if (empty($img1 = $request->file('img1')) || empty($img2 = $request->file('img2'))) {
+
+            $img2 = $request->file('img2');
+            $img4 = $request->file('chuanbushangqu');
+
+
+            if (empty($img2) || empty($img4)) {
 //                return json([
 //                   'msg'    =>  '11'
 //                ]);
                 sonToReuExit('请选择身份证正反面');
             }
 
-            $info1 = $img1->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $info1 = $img4->move(ROOT_PATH . 'public' . DS . 'uploads');
             $info2 = $img2->move(ROOT_PATH . 'public' . DS . 'uploads');
 
             if ($info1 && $info2) {

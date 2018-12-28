@@ -59,11 +59,12 @@ class MessageController extends BaseController
         $good = Goods::where('goods_id',$join->gid)->find();
         if (empty($good)) sonToReuExit('此商品已被删除');
 
+        $filePath = $this->file_path;
         // 买家
         if ($id == 1){
             // 下架中
             if ($good->goods_state != 0){
-                return $this->fetch('downGood',compact('good'));
+                return $this->fetch('downGood',compact('good', 'filePath'));
             }else{
                 // 上架中
                 return $this->redirect(url('/detail',['id' => $good->goods_id]));
@@ -72,7 +73,7 @@ class MessageController extends BaseController
             // 卖家
             // 下架中
             if ($good->goods_state != 0){
-                return $this->fetch('downGood',compact('good'));
+                return $this->fetch('downGood',compact('good', 'filePath'));
             }else{
                 // 上架中
                 return $this->redirect(url('/selGood',['id' => $good->goods_id]));
@@ -115,8 +116,8 @@ class MessageController extends BaseController
 
         }else{
             $goods = Goods::where('goods_state',0)->where('goods_uid',$this->nowUser->user_id)->select();
-            $this->assign('goods',$goods);
-            return $this->fetch('messgeList');
+            $filePath = $this->file_path;
+            return $this->fetch('messgeList',compact('filePath','goods'));
         }
     }
 

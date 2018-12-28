@@ -60,7 +60,7 @@
         {foreach $orders as $order}
         <li class="mui-table-view-cell mui-media">
             <a href="{:url('/seeGood',['id' => $order->gid])}">
-                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{:config('qiniu')['qiniuUrl']}{$order->goods_img}">
+                <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{:regStr()}/{$order->goods_img}">
                 <div class="mui-media-body" style="white-space: normal; font-size: 15px;">
                         藏品标题：{$order->goods_name}
                     <p>出价金额：￥&nbsp;{$order->order_price}</p>

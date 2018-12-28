@@ -25,9 +25,27 @@
                 <td>{$join->join_id}</td>
                 <td>{$join->join_content}</td>
                 <td>{$join->created_at}</td>
-                <td>{$join->buyer->user_name}</td>
-                <td>{$join->seller->user_name}</td>
-                <td>{$join->buyer->user_tel}</td>
+                <td>
+                    {if empty($join->buyer->user_name)}
+                        <font color="#ffa07a">此账号已被删除</font>
+                    {else /}
+                        {$join->buyer->user_name}
+                    {/if}
+                </td>
+                <td>
+                    {if empty($join->seller->user_name)}
+                        <font color="#ffa07a">此账号已被删除</font>
+                    {else /}
+                        {$join->seller->user_name}
+                    {/if}
+                </td>
+                <td>
+                    {if empty($join->buyer->user_tel)}
+                        <font color="#ffa07a">暂无电话信息</font>
+                    {else /}
+                        {$join->buyer->user_tel}
+                    {/if}
+                </td>
 
                 <td class="td-manage">
                     <a title="删除" href="javascript:;" onclick="member_del(this,{$join->join_id})" class="ml-5"
@@ -49,7 +67,7 @@
     function member_del(obj,id){
         layer.confirm('是否不在显示该信息？',function(index){
 
-            var url = "{:url('/broad/id')}"
+            var url = "{:url('/join/id')}"
             console.log(url)
             url = url.replace('id',id)
 

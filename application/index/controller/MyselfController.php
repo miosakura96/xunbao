@@ -84,6 +84,7 @@ class MyselfController extends BaseController
         $fans = Flower::where('eid',$id)->select();
         $uFans = Ufans::where('nfans_uid', $this->nowUser->user_id)->select();
 
+        
         $this->assign('uFans',$uFans);
         $this->assign('fans',$fans);
         return $this->fetch('FansList');

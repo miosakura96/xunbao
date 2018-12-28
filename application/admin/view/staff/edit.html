@@ -26,8 +26,19 @@
             <label class="form-label col-xs-4 col-sm-3">员工性别：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="mt-20 skin-minimal" style="margin-top: 0px">
+                    {if $staff->staff_sex == 2}
                     <div class="radio-box">
-                        <input type="radio" value="2" id="radio-8" name="staff_sex">
+                        <input type="radio" value="2" id="radio-8" name="staff_sex" checked>
+                        <label for="radio-8">男</label>
+                    </div>
+
+                    <div class="radio-box">
+                        <input type="radio" value="1" id="radio-9" name="staff_sex">
+                        <label for="radio-9">女</label>
+                    </div>
+                    {else /}
+                    <div class="radio-box">
+                        <input type="radio" value="2" id="radio-8" name="staff_sex" >
                         <label for="radio-8">男</label>
                     </div>
 
@@ -35,6 +46,7 @@
                         <input type="radio" value="1" id="radio-9" name="staff_sex" checked>
                         <label for="radio-9">女</label>
                     </div>
+                    {/if}
                 </div>
             </div>
         </div>

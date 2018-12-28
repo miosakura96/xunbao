@@ -95,8 +95,9 @@ class ManageController extends BaseController
                 $goodState = 1;
             }
 
+            $filePath = $this->file_path;
             $goods = Goods::where('goods_uid', $this->nowUser->user_id)->where('goods_state', $goodState)->select();
-            return $this->fetch('index',compact('goods','id'));
+            return $this->fetch('index',compact('goods','id','filePath'));
         }
     }
 

@@ -3,7 +3,7 @@
 {block name="table"}
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-        <a href="javascript:;" onclick="member_add('添加角色','{:url('/role/create')}','','800')" class="btn btn-primary radius"><i
+        <a href="javascript:;" onclick="member_add('添加角色','{:url('/role/create')}','','600')" class="btn btn-primary radius"><i
                 class="Hui-iconfont">&#xe600;</i> 添加角色</a></span>
         <span class="r">共有数据：<strong>88</strong> 条</span>
     </div>
@@ -27,8 +27,10 @@
 
                     {if $role->role_name == 'root'}
                         <font color="red">Root级别</font>
+                        <a title="编辑" href="javascript:;" onclick="member_edit('用户编辑','{:str_replace('id',$role->role_id,url('/role/id/edit'))}','4','','600')"
+                           class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     {else /}
-                    <a title="编辑" href="javascript:;" onclick="member_edit('用户编辑','{:str_replace('id',$role->role_id,url('/role/id/edit'))}','4','','800')"
+                    <a title="编辑" href="javascript:;" onclick="member_edit('用户编辑','{:str_replace('id',$role->role_id,url('/role/id/edit'))}','4','','600')"
                        class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" onclick="member_del(this,{$role->role_id})" class="ml-5"
                        style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>

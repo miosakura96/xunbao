@@ -90,7 +90,7 @@ class SystemController extends BaseController
     public function complain(Request $request)
     {
         if ($request->isPost()){
-            $staff = Staff::where('staff_num',$request->post()['staff_id'])->find();
+            $staff = Staff::where('staff_tel',$request->post()['staff_id'])->find();
             if (empty($staff)){
                 $state = 'error';
                 $msg = '没有该员工';

@@ -70,12 +70,12 @@ class GoodsController extends BaseController
 
 
             // 七牛
-            $ak = config('qiniu')['ak'];
-            $sk = config('qiniu')['sk'];
-
-            $auth = new Auth($ak, $sk);
-            $token = $auth->uploadToken('haha');
-            $uploader = new UploadManager();
+//            $ak = config('qiniu')['ak'];
+//            $sk = config('qiniu')['sk'];
+//
+//            $auth = new Auth($ak, $sk);
+//            $token = $auth->uploadToken('haha');
+//            $uploader = new UploadManager();
 
 
             $redis = new Redis();
@@ -96,14 +96,14 @@ class GoodsController extends BaseController
             $imgs = $postData['imgsrc'];
 
             foreach ($imgs as $img) {
-                $imgname = substr(str_shuffle(md5(time())), 0, 12) . '.jpg';
+                $imgname = date('YmdHis') . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,8) . substr(str_shuffle(md5(time())), 0, 24) . '.jpg';
                 $pic_url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=" . $accessToken . "&media_id={$img}";
                 $filebody = file_get_contents($pic_url);
                 $upImg = $file_path . DS . $imgname;
                 $imgArr[] = $imgname;
                 file_put_contents($upImg, $filebody);
-                // 存入七牛
-                $uploader->putFile($token, $imgname, $upImg);
+                // 先不存入七牛
+//                $uploader->putFile($token, $imgname, $upImg);
             }
 
 
@@ -134,6 +134,9 @@ class GoodsController extends BaseController
             }
 
 
+            $type = Types::where('type_name', $postData['pro_category'])->find();
+
+
             $rs = Goods::create([
                 'goods_name' => $postData['pro_name'],
                 'goods_desc' => $postData['pro_details'],
@@ -143,7 +146,7 @@ class GoodsController extends BaseController
                 'goods_price' => $postData['pro_price_real'],
                 // 商品发布者
                 'goods_uid' => isset($unUser) ? $unUser->user_id : $this->nowUser->user_id ,
-                'goods_type' => $postData['pro_category'],
+                'goods_type' => $type->type_id,
                 'expriy_time' => $expiryTime,
 
                 // 账户区分
@@ -168,7 +171,7 @@ class GoodsController extends BaseController
     {
         $id = input('id');
         $good = Goods::find($id);
-//
+        $filePath = $this->file_path;
 //        dump($good);
 //        die();
         if (empty($good)) sonToReuExit('此商品已被删除！');
@@ -188,7 +191,7 @@ class GoodsController extends BaseController
 
         $joiners = Join::where('gid',$id)->where('join_type',0)->select();
         $user = $this->nowUser;
-        return $this->fetch('detail', compact('good', 'user', 'joiners'));
+        return $this->fetch('detail', compact('good', 'user', 'joiners','filePath'));
     }
 
     // 个人藏品店
@@ -214,7 +217,7 @@ class GoodsController extends BaseController
             if ($user->is_bond == 1) {
                 return json([
                     'state' => 'error',
-                    'msg' => '请先交纳保证金'
+                    'msg' => '请付费预览'
                 ]);
             }
 
@@ -352,7 +355,8 @@ class GoodsController extends BaseController
             $id = input('id',null,'int');
             $good = Goods::find($id);
             $joiners = Join::where('gid',$good->goods_id)->where('join_type',0)->where('join_state',0)->select();
-            return $this->fetch('selGood',compact('good','joiners'));
+            $filePath = $this->file_path;
+            return $this->fetch('selGood',compact('good','joiners','filePath'));
         }
     }
 

@@ -176,7 +176,7 @@
                         <a onclick="window.location.href='{:url('/detail',['id' => $good['goods_id']])}'">
                                 {php}
                                 $imgs = explode(',',$good['goods_imgs']);
-                                $img = config('qiniu')['qiniuUrl'] . $imgs[0];
+                                $img = regStr() . '/' . $imgs[0];
                                 {/php}
                             <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="{$img}">
                             <div class="mui-media-body" style="white-space: normal; font-size: 15px;">

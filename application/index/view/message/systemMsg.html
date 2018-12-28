@@ -23,30 +23,30 @@
     <ul class="mui-table-view">
 
         {foreach $messages as $message}
-        <li class="mui-table-view-cell mui-media">
+        <li class="">
             <a href="javascript:;">
                 <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="">
-                <div class="mui-media-body">
+
                     <p class="center">
                         系统回复：{$message->message_content}
                     </p>
                     <br/>
-                </div>
+
             </a>
         </li>
         <div class="ht2"></div>
         {/foreach}
 
         {foreach $levels as $level}
-        <li class="mui-table-view-cell mui-media">
+        <li class=" ">
             <a href="javascript:;">
                 <img class="mui-media-object mui-pull-left" id="sp-img-wsf" src="">
-                <div class="mui-media-body">
+
                     <p class="center">
                         会员消息：{$level->level_content}
                     </p>
                     <br/>
-                </div>
+
             </a>
         </li>
         <div class="ht2"></div>

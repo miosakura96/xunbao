@@ -21,7 +21,7 @@
             <tr class="text-c">
                 <td>{$user->unuser_id}</td>
                 <td>{$user->unuser_name}</td>
-                <td>{$user->unuser_type}</td>
+                <td>{$user->unUserType()}</td>
                 <td class="td-manage">
                     <a title="编辑" href="javascript:;" onclick="member_edit('虚拟用户编辑','{:str_replace('id',$user->unuser_id,url('/unuser/id/edit'))}',1,1000,400)"
                        class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>

@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Hello MUI</title>
+    <title>卖家选择</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -419,7 +419,7 @@
         {foreach $imgs as $img}
         <div class="mui-slider-item mui-slider-item-duplicate">
             <a href="#">
-                <img src="{:config('qiniu')['qiniuUrl'] . $img}">
+                <img src="{:regStr()}/{$img}">
             </a>
         </div>
         {/foreach}

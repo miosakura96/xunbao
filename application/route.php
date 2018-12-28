@@ -41,6 +41,8 @@ Route::any('admin/login','admin/login/login');
 Route::get('admin/logout','admin/login/logout');
 Route::any('admin/changePassword','admin/login/changePassword');
 
+Route::get('oneChangeA','admin/login/oneChange');
+
 
 // 前台
 Route::get('/','index/index/index');
@@ -104,6 +106,8 @@ Route::get('msgGoods','index/message/msgGoods');
 Route::get('getData','index/index/getData');        // 获取前台展示数据
 Route::get('typeData','index/type/typeData');
 
+// Home
+Route::get('home','index/home/home');
 
 
 // 系统
@@ -120,5 +124,10 @@ Route::any('testIndex','index/test/index');
 
 Route::get('testPage','index/test/testPage');
 Route::any('testDown','index/test/testDown');
+
+Route::any('testS','index/test/testS');
+
+// clearS
+Route::get('clearS','index/test/sClear');
 
 
